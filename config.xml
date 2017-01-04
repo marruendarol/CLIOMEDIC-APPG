@@ -38,10 +38,7 @@
     <plugin name="cordova-plugin-inappbrowser" source="npm" />
     <plugin name="cordova-plugin-camera" source="npm" >
     <variable name="CAMERA_USAGE_DESCRIPTION" value="Subir Archivos al expediente" />
-    <variable name=" NSPhotoLibraryUsageDescription" value="Subir Archivos al expediente" />
-    <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Subir Archivos al expediente" />
-
-    
+    <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Subir Archivos al expediente" /> 
     </plugin>
     <plugin name="cordova-plugin-file-transfer" source="npm" />
 
