@@ -35,7 +35,6 @@
     <plugin name="cordova-plugin-inappbrowser" source="npm" />
     <plugin name="cordova-plugin-camera" source="npm" />
     <plugin name="cordova-plugin-file-transfer" source="npm" />
-    
     <plugin name="cordova-plugin-media-capture" source="npm" spec="*">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="Subir Expediente" />
         <variable name="MICROPHONE_USAGE_DESCRIPTION" value="Subir Expediente" />
@@ -101,5 +100,5 @@
     <allow-navigation href="https://*/*" />
     <allow-navigation href="wss://*/*" />
     <allow-navigation href="data:*" />
-
+    <engine name="ios" spec="~4.0.0" />
 </widget>
