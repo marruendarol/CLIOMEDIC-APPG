@@ -7,13 +7,31 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.nucleo.cliomedic"
-        },
         "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.nucleo.cliomedic"
         },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.nucleo.cliomedic"
+        },
         "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.nucleo.cliomedic"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.nucleo.cliomedic"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.nucleo.cliomedic"
+        },
+        "cordova-plugin-media-capture": {
+            "PACKAGE_NAME": "com.nucleo.cliomedic"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.nucleo.cliomedic"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.nucleo.cliomedic"
+        },
+        "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.nucleo.cliomedic"
         }
     },

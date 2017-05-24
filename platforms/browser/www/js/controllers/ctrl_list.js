@@ -19,88 +19,59 @@ var ctrl_list = {
 
 		switch(paramsPage.type){
 			case "exp" : titleList="Expedientes";distVis=false;ctrl_list.exp(paramsPage.id);break;
-			case "cerca" : titleList="Cerca de mí";distVis=true;ctrl_list.getGeo();break;
-			case "especialidad" : titleList="Por Especialidad";distVis=false;ctrl_list.byEspec(paramsPage.id);break;
-			case "descListado" : titleList="Listado descuentos";distVis=true;ctrl_list.byListaDesc(paramsPage.id);break;
-			case "descPorc" :  titleList="Mayores Descuentos";distVis=true;ctrl_list.byPercDesc();break;
-			case "descEspec" : distVis=false;ctrl_list.byZona(paramsPage.id);break;
-			case "descZona" : distVis=false;ctrl_list.byDescCerca();break;
+			case "pacientes" : titleList="Pacientes";distVis=true;ctrl_list.getPacientes();break;
+			
 		}
 	//--------------------------------------------ZONA
 	},
 	exp : function(id){
-		  socket.removeListener('pacAct');
-        socket.on('pacAct', function(response){
-            console.log(response,"respuesta de pacientes")
-          ctrl_list.render(response)
+
+		var pacs = []
+		var currList = [];
+		 
+		socket.removeListener('opened'+userRoom);
+        socket.on('opened'+userRoom, function(response){      	
+		  		if(currList.indexOf(response.curp)==-1){
+		  			currList.push(response.curp)
+		  			pacs.push(response)
+		  		}else{
+		  			pacs[currList.indexOf(response.curp)].time = response.time;
+		  		}           
+        
+		// Check Time
+
+		
+
+        ctrl_list.render(pacs)
 
         });
 
-        console.log("triendo pacientes",userRoom)
+        expInt =  setInterval(function(){currList=[];pacs=[];ctrl_list.render(pacs)},15000)
 
-        socket.emit('getPacientesAct',{room:userRoom});
-	},
-	//-------------------------------------------CERCA
-	getGeo : function(){
-		jqm.showLoader("buscando ubicación...");
-		getLastKnownLocation(ctrl_list.geoRet,ctrl_list.onLocationError,true)
-
-		//getLastKnownLocation(ctrl_list.geoRet,ctrl_list.onLocationError,true); 
-	},
-	geoRet : function(location){
-		dbC.query("/api/byGeo","POST",{lat:location.coords.latitude,lng:location.coords.longitude},ctrl_list.render)
-	},
-	onLocationError : function(err){
-		console.log("error de geo pos ")
-		alert("No se puede obtener su locaclización GPS, por favor revise que la función este habilitada o que su GPS este en un rango operacional. " + err)
+        ctrl_list.render(pacs)
 	},
 	//------------------------------------------ESPECIALIDAD
-	byEspec : function(id){
-		jqm.showLoader("buscando ubicación...");
-		dbC.query("/api/byEspec","POST",{id:id},ctrl_list.render)
+	getPacientes : function(id){
+		socket.removeListener('getPacientes');
+        socket.on('getPacientes', function(response){
+            
+        	var pacs = response
+            console.log(response,"respuesta de pacientes")
+
+            var data = { pacientes : response };
+            //ctrl_pacienteM.RS = Defiant.getSnapshot(response);
+            //ctrl_pacienteM.rObj.set('pacientes', data);
+            //createGrowl("App info","Registro Actualizado con éxito.",false,'bg_ok');
+            
+             ctrl_list.renderPacientes(pacs)
+
+        });
+
+        console.log("triendo pacientes")
+
+        socket.emit('getPacientes',{room:userRoom});
 	},
 	//------------------------------------------LISTADO DE DESCUENTOS
-	byListaDesc : function(specV){
-		jqm.showLoader("buscando...");
-		spec = specV;
-		getLastKnownLocation(ctrl_list.listaDescLoc,ctrl_list.onLocationError,true); 
-	},
-	listaDescLoc : function(location){
-		jqm.showLoader("buscando...");
-		console.log(spec+"SPECVVV")
-		dbC.query("/api/byListaEspecGeo","POST",
-			{lat:location.coords.latitude,
-			lng:location.coords.longitude,
-			spec : spec
-		},ctrl_list.render)
-	},
-	//------------------------------------------MAYOR PORCENTAJE GEO
-	byPercDesc : function(){
-		jqm.showLoader("buscando...");
-		getLastKnownLocation(ctrl_list.PercDescLoc,ctrl_list.onLocationError,true); 
-	},
-	PercDescLoc : function(location){
-		jqm.showLoader("buscando...");
-		dbC.query("/api/byListaPercGeo","POST",
-			{lat:location.coords.latitude,
-			lng:location.coords.longitude
-		},ctrl_list.render)
-	},
-	//------------------------------------------DESCUENTOS POR ESPECIALIDAD
-	byDescEspec : function(){
-		dbC.query("/api/byDescEspec","POST",{},ctrl_list.render)
-	},
-	//------------------------------------------POR ESTADO
-	byDescEstado : function(){
-		dbC.query("/api/byDescEstado","POST",{},ctrl_list.render)
-	},
-	//------------------------------------------DESCUENTOS CERCA DE MI 
-	byDescCerca : function(){
-		navigator.geolocation.getCurrentPosition(ctrl_list.geoRet,null); 
-	},
-	descCercaRet : function(location){
-		dbC.query("/api/byDescCerca","POST",{lat:lat,lng:lng},ctrl_list.render)
-	},
 	//-----------------------------------------------------------
 	render : function(data){
 
@@ -121,6 +92,7 @@ var ctrl_list = {
 		ctrl_list.mainObj = template.render('#listT',ctrl_list.pageDiv,datar)
 
 		ctrl_list.mainObj.on('listDetail',function(event){
+			
 			mainC.clickAnim(event.node)
 			paramsSuc = { data : event.context }
 			$.mobile.changePage( "#infoSuc");
@@ -136,6 +108,72 @@ var ctrl_list = {
 			});
 		
 	
+
+	},
+	renderPacientes : function(data){
+
+
+		jqm.hideLoader();
+
+		
+		
+		var datar = { 
+			items  : data,
+					distVis : distVis,
+					empty 	: (data.length==0 ? true : false),
+					img 		: "noimage.png",
+			}
+
+		$('#titleList').text(titleList)
+
+		ctrl_list.mainObj = template.render('#listTP',ctrl_list.pageDiv,datar)
+
+		ctrl_list.mainObj.on('listDetail',function(event){
+			
+			mainC.clickAnim(event.node)
+			paramsSuc = { data : event.context }
+			$.mobile.changePage( "#expedientSec");
+			//ctrl_list.renderSeccs(event.context);
+		});
+
+		$(ctrl_list.pageDiv).trigger("create");
+		//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+		 myScroll = new IScroll('#wrapperList',{  
+		 	click:true,useTransition:true,scrollbars:scrolls,mouseWheel:true,interactiveScrollbars: true })
+
+		 ctrl_list.mainObj.on('openLink',function(event){
+				window.open(event.context.urlLink, '_system')
+			});
+		
+	
+
+	},
+	renderSeccs : function(data){
+		$('#titleList').text("Expediente")
+		console.log("render Seccs ")
+		var datar = {
+			nombre : data.info.nombre,
+			items: [{secname:"Datos personales",id:0},
+					{secname:"Antecedentes",id:1},
+					{secname:"Estudios",id:2},
+					{secname:"Histórico de notas",id:3}
+				]
+		}
+
+
+
+
+
+		ctrl_list.mainObj = template.render('#seccsExp',ctrl_list.pageDiv,datar)
+
+		$(ctrl_list.pageDiv).trigger("create");
+		//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+		 myScroll = new IScroll('#wrapperList',{  
+		 	click:true,useTransition:true,scrollbars:scrolls,mouseWheel:true,interactiveScrollbars: true })
+
+		ctrl_list.mainObj.on('clickSecc',function(e){
+			console.log(e.context,"CONTEXTO")
+		})		
 
 	}
 }

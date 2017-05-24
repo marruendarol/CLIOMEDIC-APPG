@@ -8,7 +8,7 @@ var ctrl_info = {
 
 	init : function(data,template){
 
-		console.log(data)
+		console.log(data,"DATA INICIALÑ")
 		ctrl_info.data = data;
 		ctrl_info.render();
 	},
@@ -46,7 +46,7 @@ var ctrl_info = {
 			alert('get picture failed');
 			},{
 				quality: 50, 
-				destinationType: navigator.camera.DestinationType.FILE_URI,
+				destinationType: navigator.camera.DestinationType.DATA_URI,
 				sourceType: navigator.camera.PictureSourceType.CAMERA
 			});
 
@@ -79,7 +79,7 @@ var ctrl_info = {
 			var dato = {};
 			dato.estudiosE = estudiosE;
 			mainObj.set('estudiosE',estudiosE)
-			socket.emit('updateExp',{room:userRoom,data : dato,_id:paramsSuc.data._id});
+			socket.emit('updateExp',{room:userRoom,data : dato,_id:paramsSuc.data.expId});
 			socket.emit('getExpediente',{room:userRoom,curp:paramsSuc.data.curp});
 			
         };
@@ -91,7 +91,7 @@ var ctrl_info = {
 
 		setTimeout(function(){ myScroll.refresh() }, 500);
 		
-
+		$( '.swipebox' ).swipebox();
 	}
 }
 
@@ -99,6 +99,7 @@ var ctrl_info = {
 
 function uploadPhoto(imageURI) {
             var options = new FileUploadOptions();
+            options.chunkedMode = false;
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
@@ -115,9 +116,11 @@ function uploadPhoto(imageURI) {
             options.fileExtension = "jpg";
  
             options.params = params;
-            options.chunkedMode = false;
+           
 
             var ft = new FileTransfer();
             var params = "folder=" + 'estudios' + "&fileName=" +  options.fileName + "&fileExtension=." + options.fileExtension ;
-            ft.upload(imageURI, serverURL + "/user/uploadRackspaceMobile?" + params, function(response){ctrl_info.uploadCallBack(response)}, function(response){console.log("fail",response)}, options,true);
+            ft.upload(imageURI, 'https://104.131.162.87:3000' + "/user/uploadRackspaceMobile?" + params, 
+            	function(response){ctrl_info.uploadCallBack(response)}, 
+            	function(response){console.log("fail",response)}, options,true);
         }

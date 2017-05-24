@@ -1,11 +1,16 @@
 /**********************************************************
 *	MAIN CONTROLLER
 ***********************************************************/
+//keytool -genkey -v -keystore com.cliomedic.keystore -alias cliomedic -keyalg RSA -keysize 2048 -validity 1000000
+
+ //jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore com.cliomedic.keystore android-release-unsigned.apk cliomedic
+
+ // zipalign -v 4 android-release-unsigned.apk releaseCliomedic.apk 
 
 var userLat = 20.6596
 var userLng = -103.3496
-var serverURL = "http://192.168.100.15:3020";
-//var serverURL = "http://localhost:3018";
+var serverURL = "https://cliomedic.com/";
+//var serverURL = "http://192.168.100.15:3030";
 var paramsPage = {}
 var scrolls = false;
 
@@ -172,6 +177,28 @@ var rh = {
 
 		
 	},
+	momentoCal : function(val){
+	  moment.locale('es');
+      var cal = moment.unix(val,'DD/MM/YYYY, h:mm:ss a','es')
+      return  cal;
+	}, 
+    momentoFecha : function(val){
+      moment.locale('es');
+      var cal = rh.cCase(moment(val).format('DD MMM YYYY'));
+      return  cal;
+    },
+     momentoHora : function(val){
+      moment.locale('es');
+      var cal = moment(val).format('h:mm:ss a');
+      return  cal;
+    },
+    momentoDate : function(val){
+        console.log(val,"VALE")
+      moment.locale('es');
+      var cal = moment(val).calendar();
+      console.log(cal,"CAL")
+      return  cal;
+    },
 	cCase  : function(str){
 		return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 	},

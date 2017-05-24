@@ -10,7 +10,6 @@ var ctrl_core = {
 	init : function(){	
 		ctrl_core.routeListeners();
 
-
 			var username= window.localStorage.getItem("username");
 			if(username!=undefined){
 				ctrl_loginS.checkLogin({username:window.localStorage.getItem("username"),password:md5(window.localStorage.getItem("password"))})
@@ -42,7 +41,12 @@ var ctrl_core = {
 	},
 	routeListeners : function(){
 
+		clearInterval(expInt)
+		try{
+			socket.removeListener('opened'+userRoom);	
+		} catch (error) {}
 		
+
 		$(document).on("pagebeforeshow","#initialBlank", function() {
 	       	var username= window.localStorage.getItem("username");
 			if(username!=undefined){
@@ -67,9 +71,9 @@ var ctrl_core = {
 	    	ctrl_core.loadController("./js/controllers/ctrl_anadir.js",params);
 	    });
 
-	    $(document).on("pagebeforeshow","#registro", function() {
-	        var params = { init : 'ctrl_registro.init', }
-	    	ctrl_core.loadController("./js/controllers/ctrl_registro.js",params);
+	    $(document).on("pagebeforeshow","#calendar", function() {
+	        var params = { init : 'ctrl_agendaM.init', }
+	    	ctrl_core.loadController("./js/controllers/ctrl_agendaM.js",params);
 	    });
 
 	    $(document).on("pagebeforeshow","#recuperar", function() {
@@ -89,57 +93,50 @@ var ctrl_core = {
 	    	ctrl_core.loadController("./js/controllers/ctrl_list.js",params);
 	    });
 
-	    $(document).on("pagebeforeshow","#especialidadR", function() {
-	      	var params = { init : 'ctrl_especR.init' }
-	    	ctrl_core.loadController("./js/controllers/ctrl_especialidadR.js",params);
-	    });
 
-	    $(document).on("pagebeforeshow","#especialidad", function() {
-	      	var params = { init : 'ctrl_espec.init' }
-	    	ctrl_core.loadController("./js/controllers/ctrl_especialidad.js",params);
-	    });
 
-	    $(document).on("pagebeforeshow","#zona", function() {
-	      	var params = { init : 'ctrl_zona.init' }
-	    	ctrl_core.loadController("./js/controllers/ctrl_zona.js",params,false);
-	    });
-
-	    $(document).on("pagebeforeshow","#delegacion", function() {
-	      	var params = { init : 'ctrl_delegacion.init' }
-	    	ctrl_core.loadController("./js/controllers/ctrl_delegacion.js",params);
-	    });
-
-	    $(document).on("pagebeforeshow","#descuentos", function() {
-	      	var params = { init : 'ctrl_descMayor.init' }
-	    	ctrl_core.loadController("./js/controllers/ctrl_descMayor.js",params);
-	    });
-
-	    // Descuentos -----------------------------------------------------------------
+	    // Expedientes -----------------------------------------------------------------
 
 	     $(document).on("pagebeforeshow","#listDesc", function() {
 	      	var params = { init : 'ctrl_listDesc.init' }
 	    	ctrl_core.loadController("./js/controllers/ctrl_listDesc.js",params);
 	    });
 
-	     $(document).on("pagebeforeshow","#busqueda", function() {
-	      	var params = { init : 'ctrl_busqueda.init' }
-	    	ctrl_core.loadController("./js/controllers/ctrl_busqueda.js",params);
+	     $(document).on("pagebeforeshow","#expedientSec", function() {
+	      	var params = { init : 'ctrl_expedienteSec.init' }
+	    	ctrl_core.loadController("./js/controllers/ctrl_expedienteSec.js",params);
 	    });
 
-	      $(document).on("pagebeforeshow","#descMayor", function() {
-	      	var params = { init : 'ctrl_descMayor.init' }
-	    	ctrl_core.loadController("./js/controllers/ctrl_descMayor.js",params);
+	    $(document).on("pagebeforeshow","#personalesView", function() {
+	      	var params = { init : 'ctrl_personales.init' }
+	    	ctrl_core.loadController("./js/controllers/ctrl_personales.js",params);
 	    });
 
-	    $(document).on("pagebeforeshow","#especDesc", function() {
-	      	var params = { init : 'ctrl_especDesc.init' }
-	    	ctrl_core.loadController("./js/controllers/ctrl_especDesc.js",params);
-	    }); 
+	    $(document).on("pagebeforeshow","#antecedentesView", function() {
+	      	var params = { init : 'ctrl_antecedentes.init' }
+	    	ctrl_core.loadController("./js/controllers/ctrl_antecedentes.js",params);
+	    });
 
-	    $(document).on("pagebeforeshow","#zonaDesc", function() {
-	      	var params = { init : 'ctrl_zonaDesc.init' }
-	    	ctrl_core.loadController("./js/controllers/ctrl_zonaDesc.js",params);
-	    }); 
+	    $(document).on("pagebeforeshow","#estudiosView", function() {
+	      	var params = { init : 'ctrl_estudios.init' }
+	    	ctrl_core.loadController("./js/controllers/ctrl_estudios.js",params);
+	    });
+
+	    $(document).on("pagebeforeshow","#historicoView", function() {
+	      	var params = { init : 'ctrl_historico.init' }
+	    	ctrl_core.loadController("./js/controllers/ctrl_historico.js",params);
+	    });
+
+
+	    $(document).on("pagebeforeshow","#listNotas", function() {
+	      	var params = { init : 'ctrl_listNotas.init' }
+	    	ctrl_core.loadController("./js/controllers/ctrl_listNotas.js",params);
+	    });
+
+	    $(document).on("pagebeforeshow","#notaDet", function() {
+	      	var params = { init : 'ctrl_notaDet.init' }
+	    	ctrl_core.loadController("./js/controllers/ctrl_notaDet.js",params);
+	    });
 
 	    //----------------------------------------------------------------------------
 
@@ -159,10 +156,7 @@ var ctrl_core = {
 	    	ctrl_core.loadController("./js/controllers/ctrl_contacto.js",params);
 	    });
 
-	     $(document).on("pagebeforeshow","#incidencia", function() {
-	      	var params = { init : 'ctrl_incidencia.init' }
-	    	ctrl_core.loadController("./js/controllers/ctrl_incidencia.js",params);
-	    });
+	  
 	}
 
 }

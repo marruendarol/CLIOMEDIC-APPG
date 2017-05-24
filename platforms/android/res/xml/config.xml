@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget android-versionCode="292" id="com.nucleo.cliomedic" version="1.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <allow-navigation href="cdvfile:*" />
+    <feature name="FileTransfer">
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
+    </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="Capture">
+        <param name="android-package" value="org.apache.cordova.mediacapture.Capture" />
+    </feature>
+    <feature name="NetworkStatus">
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <name>Cliomedic</name>
+    <description>
+       Cliomedic
+    </description>
+    <author email="dev@n4ymedio.mx" href="n4ymedio.mx">
+        Nucleo 4 y Medio
+    </author>
+    <content src="index.html" />
+    <config-file parent="UIStatusBarHidden" platform="ios">
+        <true />
+    </config-file>
+    <config-file parent="UIViewControllerBasedStatusBarAppearance" platform="ios">
+        <false />
+    </config-file>
+    <icon height="57" platform="ios" src="iconIOS.png" width="57" />
+    <icon height="120" platform="ios" src="iconIOS2.png" width="120" />
+    <splash height="480" platform="ios" src="Default.png" width="320" />
+    <splash height="960" platform="ios" src="Default@2x.png" width="640" />
+    <splash height="1136" platform="ios" src="Default-568h@2x.png" width="640" />
+    <splash height="1334" platform="ios" src="Default-667h@2x.png" width="750" />
+    <splash height="2208" platform="ios" src="Default-Portrait-736h@3x.png" width="1242" />
+    <splash height="1242" platform="ios" src="Default-Landscape-736h@3x.png" width="2208" />
+    <splash height="1024" platform="ios" src="Default-Portrait.png" width="768" />
+    <splash height="768" platform="ios" src="Default-Landscape.png" width="1024" />
+    <splash height="2048" platform="ios" src="Default-Portrait@2x.png" width="1536" />
+    <splash height="1536" platform="ios" src="Default-Landscape@2x.png" width="2048" />
+    <access origin="*" subdomains="true" />
+    <allow-intent href="*" />
+    <access launch-external="yes" origin="geo:*" />
+    <access launch-external="yes" origin="google.navigation:*" />
+    <access origin="*://*.googleapis.com/*" subdomains="true" />
+    <access origin="*://*.gstatic.com/*" subdomains="true" />
+    <access origin="*://*.google.com/*" subdomains="true" />
+    <access origin="*://*.googleusercontent.com/*" subdomains="true" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <allow-navigation href="*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="https://*/*" />
+    <allow-navigation href="wss://*/*" />
+    <allow-navigation href="data:*" />
+    <allow-intent href="market:*" />
+    <preference name="loglevel" value="DEBUG" />
+    <preference name="permissions" value="none" />
+    <preference name="orientation" value="portrait" />
+    <preference name="fullscreen" value="false" />
+    <preference name="webviewbounce" value="true" />
+    <preference name="prerendered-icon" value="true" />
+    <preference name="detect-data-types" value="true" />
+    <preference name="exit-on-suspend" value="false" />
+    <preference name="show-splash-screen-spinner" value="true" />
+    <preference name="disable-cursor" value="false" />
+    <preference name="android-minSdkVersion" value="14" />
+    <preference name="android-installLocation" value="auto" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarStyle" value="default" />
+    <preference name="target-device" value="handset" />
+    <preference name="BackgroundColor" value="0x0000" />
+    <preference name="stay-in-webview" value="false" />
+    <preference name="ios-statusbarstyle" value="black-opaque" />
+    <preference name="HideKeyboardFormAccessoryBar" value="true" />
+    <preference name="SplashScreenDelay" value="0" />
+    <preference name="AutoHideSplashScreen" value="true" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="SplashScreenBackgroundColor" value="0x0000" />
+    <preference name="SplashShowOnlyFirstTime" value="true" />
+    <preference name="EnableViewportScale" value="false" />
+</widget>

@@ -859,11 +859,11 @@ label.ui-btn {
 .ui-btn-icon-bottom:after,
 .ui-btn-icon-notext:after {
 	background-color: 					#666 /*{global-icon-color}*/;
-	background-color: 					rgba(0,0,0,.3) /*{global-icon-disc}*/;
-	background-position: center center;
+	background-color: #3c4253;
 	background-repeat: no-repeat;
 	-webkit-border-radius: 1em;
 	border-radius: 1em;
+	background-position: center;
 }
 /* Alt icons */
 .ui-alt-icon.ui-btn:after,
@@ -1011,7 +1011,7 @@ html .ui-body-a .ui-btn:visited,
 html body .ui-group-theme-a .ui-btn:visited,
 html head + body .ui-btn.ui-btn-a:visited {
 	/* background-color: #ffffff; */
-	border-color:	 		#ddd /*{a-bup-border}*/;
+	/* border-color:	 		#ddd /*{a-bup-border}*/ */
 	color: #2B2B2B /*{a-bup-color}*/;
 	/* text-shadow: 0 /*{a-bup-shadow-x}*/ 1px /*{a-bup-shadow-y}*/ 0 /*{a-bup-shadow-radius}*/ #f3f3f3 /*{a-bup-shadow-color}*/ */
 }
@@ -1628,7 +1628,7 @@ div.ui-mobile-viewport {
 .ui-btn-icon-top:after,
 .ui-btn-icon-bottom:after {
 	left: 50%;
-	margin-left: -11px;
+	margin-left: -10px;
 }
 .ui-btn-icon-top:after {
 	top: .5625em;
@@ -4187,7 +4187,7 @@ textarea.ui-mini {
 	position: absolute;
 	right: 0;
 	top: 50%;
-	margin: -14px .3125em 0;
+	margin: -13px 0.3125em 0;
 	border: 0;
 	background-color: transparent;
 }

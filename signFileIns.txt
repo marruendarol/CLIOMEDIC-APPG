@@ -1,0 +1,6 @@
+D:\Android\build-tools\25.0.0>
+
+zipalign -v -p 4 Z:\CLIOMEDIC-APPG\platforms\android\build\outputs\apk\android-release-unsigned.apk   Z:\CLIOMEDIC-APPG\platforms\android\build\outputs\apk\android-release.apk 
+
+apksigner sign --ks Z:\CLIOMEDIC-APPG\com.cliomedic.keystore Z:\CLIOMEDIC-APPG\platforms\android\build\outputs\apk\android-release.apk
+

@@ -54,7 +54,7 @@ var ctrl_login = {
 	initSocket : function(){
 
     	socket.on('connect', function () { 
-    		//console.log("connecting remote",userRoom)
+    		console.log("connecting remote",userRoom)
     		socket.emit('create',userRoom);  
 
     		socket.on('joined', function(response){

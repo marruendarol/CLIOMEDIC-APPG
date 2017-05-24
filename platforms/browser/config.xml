@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="281" id="com.nucleo.cliomedic" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget android-versionCode="290" id="com.nucleo.cliomedic" version="1.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:gap="http://phonegap.com/ns/1.0">
     <feature name="Camera">
         <param name="browser-package" value="Camera" />
+    </feature>
+    <feature name="Device">
+        <param name="browser-package" value="Device" />
     </feature>
     <name>Cliomedic</name>
     <description>
@@ -29,9 +32,8 @@
     <splash height="768" platform="ios" src="Default-Landscape.png" width="1024" />
     <splash height="2048" platform="ios" src="Default-Portrait@2x.png" width="1536" />
     <splash height="1536" platform="ios" src="Default-Landscape@2x.png" width="2048" />
-    <access origin=".*" />
+    <access origin="*" subdomains="true" />
     <allow-intent href="*" />
-    <allow-navigation href="*" />
     <access launch-external="yes" origin="geo:*" />
     <access launch-external="yes" origin="google.navigation:*" />
     <access origin="*://*.googleapis.com/*" subdomains="true" />
@@ -44,7 +46,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <allow-navigation href="http://autotips.mx/*" />
+    <allow-navigation href="*" />
     <allow-navigation href="http://*/*" />
     <allow-navigation href="https://*/*" />
     <allow-navigation href="wss://*/*" />

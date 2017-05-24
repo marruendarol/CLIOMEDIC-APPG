@@ -47,8 +47,8 @@
 	{{>menuT}}
 
 	 <div data-role="header" id="headerLogo" data-position="fixed">
-        <div id="logoHeader">
-		<img src="img/logo3.png">
+        <div id="logoPant">
+		<img src="img/logoForma.png">
 	</div>
 
      <!--   <a href="#nav-panel" data-icon="bars" data-iconpos="notext">Menu</a>  -->
@@ -56,21 +56,21 @@
     </div><!-- /header -->
 
     <div role="main" >
-           <div id="wrapperMain" >
+           <div id="wrapperMain" class="mainBackI" >
 
 
-       				<div class="listMain" on-tap="getExp">
+           <div class="botCont">
 
-						<div class="icoDiv"><img class="icoImg" src="img/compartir_nde_b.png"></div>
-
-						<div class="mainIcoText">Expedientes</div>
+       				<div class="listMenu backm1" on-tap="getExp">
 					</div>
 
-					<div class="listMain" on-tap="getZona">
-
-						<div class="icoDiv"><img class="icoImg" src="img/calendario32.png"></div>
-						<div class="mainIcoText">Agenda</div>
+					<div class="listMenu backm2" on-tap="getCalendar">
 					</div>
+
+					<div class="listMenu backm3" on-tap="getPacientes">			
+					</div>
+
+			</div>		
 		</div>
 
 
@@ -95,7 +95,7 @@
 	                	
 
 	                   	<div class="small-10 column rPad">
-	                        <div class="nSucursal">{{correctCase(paciente)}}</div>
+	                        <div class="nSucursal">{{correctCase(nombre)}}</div>
 	                        
 	                    </div>
 
@@ -110,8 +110,47 @@
 	            {{/items}}
 	        </ul>
 
-	        {{#if empty}}
-	        	<h4 style="margin:20px;"> Sin Resultados, intente otra búsqueda</h4>
+	        {{#if items.length==0}}
+	        	<h4 style="margin:20px;"> esperando nota de evolución activa... </h4>
+	        {{/if}}
+
+	    </div>
+	</div>
+
+
+
+
+</script>
+
+<!-- Listado 1  ============================================================-->
+<script id='listTP' type='text/ractive'>
+
+	<div id="wrapperList" >
+	    <div id="scroller" >
+	        <ul data-role="listview" id="listview">
+	            {{#items}}
+	            <li  data-icon="false">
+	                <a class="autoli" on-tap="listDetail" data-transition="fade">
+	                   
+	                   	<div class="small-10 column rPad">
+	                        <div class="nSucursal">{{correctCase(info.nombre)}} {{correctCase(info.paterno)}} {{correctCase(info.materno)}}</div>
+	                        <div class="nSub">{{info.curp}}</div>
+	                        
+	                    </div>
+
+	                    
+	                    <div class="small-1 column rPad">
+	                        <div class="fNaranja"> 
+	                        <img src="img/fNaranja.png">
+	                        </div>
+	                    </div>
+	                </a>
+	            </li>
+	            {{/items}}
+	        </ul>
+
+	        {{#if items.length==0}}
+	        	<h4 style="margin:20px;"> no existen pacientes </h4>
 	        {{/if}}
 
 	    </div>
@@ -123,345 +162,65 @@
 </script>
 
 
-<!-- Especialidades  ============================================================-->
-<script id='busquedaT' type='text/ractive'>
 
-<div id="wrapperBusqueda" class="wrapper">
-	    <div id="scroller" >
-	      	<input on-change="getSearch" type="text" id="busquedaI" placeholder="Nombre del negocio" value="{{busquedaStr}}" name="busqueda">
-
-	      	<ul data-role="listview" id="listviewB" >
-	            {{#each data}}
-	            <li  data-icon="false">
-	                <a class="autoli" on-tap="getSuc" data-transition="fade">
-	                    <div class="small-8 column rpad">
-	                        <div class="nSucursal">{{correctCase(nombre)}}</div>
-	                        
-	                      	<div class="" style="margin-bottom:20px;">
-	                      	 <div style="margin-left: 6px;">
-								<div data-role="none" class="starMini {{#if rate>0}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>1}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>2}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>3}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>4}}star-fill{{/if}}"></div>
-							</div>
-							</div>
-
-						
-
-	                    </div>
-
-	                    <div class="small-2 column rPad">
-	                       <div class="distancia">{{roundDist(dist)}} Km.</div> 
-	                        </div>
-
-
-	          
-	                    <div class="small-1 column rpad end">
-	                        <div class="fNaranja"> 
-	                        <img src="img/fNaranja.png">
-	                        </div>
-	                    </div>
-	                </a>
-	            </li>
-	            {{/each}}
-	        </ul>
-
-
-	         {{#if empty}}
-	        	<h4 style="margin:20px;"> Sin Resultados, intente otra búsqueda</h4>
-	        {{/if}}
-
-
-	    </div>
-</div>
-
-
-</script>
-
-<!-- Especialidades  ============================================================-->
-<script id='especT' type='text/ractive'>
-
-<div id="wrapperEspec" class="wrapper" >
-	    <div id="scroller" >
-	        <ul data-role="listview" id="listview" data-filter="true" data-filter-placeholder="filtrar especialidad...">
-	            {{#each data}}
-	            <li  data-icon="false">
-	                <a class="autoli" on-tap="getSuc" data-transition="fade">
-	                    <div class="small-10 column rPad">
-	                        <div class="nSucursal">{{correctCase(nombre)}}</div>
-
-	                    </div>
-	          
-	                    <div class="small-1 column">
-	                        <div class="fNaranja"> 
-	                        <img src="img/fNaranja.png">
-	                        </div>
-	                    </div>
-	                </a>
-	            </li>
-	            {{/each}}
-	        </ul>
-	    </div>
-	</div>
-
-
-</script>
-
-<!-- Especialidades  ============================================================-->
-<script id='especRT' type='text/ractive'>
-
-<div id="wrapperEspecR" class="wrapper" >
-	    <div id="scroller" >
-	        <ul data-role="listview" id="listview" data-filter="true" data-filter-placeholder="filtrar especialidad...">
-	            {{#each data}}
-	            <li  data-icon="false">
-	                <a class="autoli" on-tap="getSuc" data-transition="fade">
-	                    <div class="small-10 column rPad">
-	                        <div class="nSucursal">{{correctCase(nombre)}}</div>
-
-	                    </div>
-	          
-	                    <div class="small-1 column">
-	                        <div class="fNaranja"> 
-	                        <img src="img/fNaranja.png">
-	                        </div>
-	                    </div>
-	                </a>
-	            </li>
-	            {{/each}}
-	        </ul>
-	    </div>
-	</div>
-
-
-</script>
-
-<!-- Descuento  ============================================================-->
-<script id='descuentoT' type='text/ractive'>
-
-	<div id="wrapperDesc" class="wrapper">
-	    <div id="scroller">
-	        <ul data-role="listview" id="listview">
-
-	        	  <li  data-icon="false">
-	                <a class="autoli" on-tap="porcDesc" data-transition="fade">
-	                    <div class="small-10 column rPad">
-	                        <div class="nSucursal">Mayor Porcentaje</div>
-	                        
-	                    </div>
-	                    <div class="small-1 column">
-	                        <div class="fNaranja"> <img src="img/fNaranja.png"></div>
-	                    </div>
-	                </a>
-	            </li>
-
-
-	            <li  data-icon="false">
-	                <a class="autoli" on-tap="listDesc" data-transition="fade">
-	                    <div class="small-10 column rPad">
-	                        <div class="nSucursal">Por cercanía</div>
-	                        
-	                    </div>
-	                    <div class="small-1 column">
-	                        <div class="fNaranja"> <img src="img/fNaranja.png"></div>
-	                    </div>
-	                </a>
-	            </li>
-
-	           
-
-	            
-
-	        </ul>
-	    </div>
-	</div>
-
+<!--  Secciones Historico  ============================================================-->
+<script id='seccsExp' type='text/ractive'>
+    <h1>{{nombre}}</h1>
+    <div id="wrapperList">
+        <div id="scroller">
+            <ul data-role="listview" id="listview">
+                {{#items}}
+                <li data-icon="false">
+                    <a class="autoli" on-tap="clickSecc" data-transition="fade">
+                        <div class="small-10 column rPad">
+                            <div class="nSucursal">{{secname}} </div>
+                        </div>
+                        <div class="small-1 column rPad">
+                            <div class="fNaranja">
+                                <img src="img/fNaranja.png">
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {{/items}}
+            </ul>
+        </div>
+    </div>
 </script>
 
 
-<!-- Zona  ============================================================-->
-<script id='listDescT' type='text/ractive'>
-
-	<div id="wrapperListDesc" class="wrapper" >
-	    <div id="scroller" >
-	        <ul data-role="listview" id="listview" data-filter="true" data-filter-placeholder="filtrar..." >
-	           {{#items}}
-	            <li  data-icon="false">
-	                <a class="autoli" on-tap="getSuc" data-transition="fade">
-	                   
-	                	{{#if distVis}}
-	                    <div class="small-8 column rPad">
-	                        <div class="nSucursal">{{correctCase(nombre)}}</div>
-	                        <div class="tags">{{descuentos[0].espec}} {{descuentos[0].perc}}%</div>
-	                      	 <div style="margin-left: 6px;">
-								<div data-role="none" class="starMini {{#if rate>0}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>1}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>2}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>3}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>4}}star-fill{{/if}}"></div>
-							</div>
-	                    </div>
-	                    <div class="small-2 column rPad">
-	                       <div class="distancia">{{roundDist(dist)}} Km.</div> 
-	                        </div>
-	                    
-	                   	{{else}}
-
-	                   	<div class="small-10 column rPad">
-	                        <div class="nSucursal">{{correctCase(nombre)}}</div>
-	                        
-	                    </div>
-	                    	
-	                        {{/if}}
-	                    
-	                    <div class="small-1 column rPad">
-	                        <div class="fNaranja"> 
-	                        <img src="img/fNaranja.png">
-	                        </div>
-	                    </div>
-	                </a>
-	            </li>
-	            {{/items}}
-	        </ul>
-	    </div>
-	</div>
-
-
-	<div data-role="footer" data-position="fixed" style="position:fixed;bottom:0;"> 
-			<img class="imgBanner"  on-click="openLink" id="imgBanner" src="http://autotips.mx:3018/uploads/docs/{{img}}">
-	</div> 
-
-
-
+<!--  Listado Histórico de Expedientes ============================================================-->
+<script id='listNotasT' type='text/ractive'>
+    <h1>Notas actuales</h1>
+    <div id="wrapperList">
+        <div id="scroller">
+            <ul data-role="listview" id="listview">
+                {{#data:num}}
+                <li data-icon="false">
+                    <a class="autoli" on-tap="clickSecc" data-transition="fade">
+                        <div class="small-10 column rPad">
+                            <div class="nSucursal">{{cCase(data[num].nomMed)}}</div>
+                            <div class="nSub">{{momentoFecha(data[num].closeTs)}} {{momentoHora(data[num].closeTs)}}</div>
+                        </div>
+                        <div class="small-1 column rPad">
+                            <div class="fNaranja">
+                                <img src="img/fNaranja.png">
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                {{/data}}
+            </ul>
+        </div>
+    </div>
 </script>
 
 
-<!-- Zona  ============================================================-->
-<script id='listMayorT' type='text/ractive'>
-
-	<div id="wrapperListDesc" class="wrapper" >
-	    <div id="scroller" >
-	        <ul data-role="listview" id="listview" data-filter="true" data-filter-placeholder="filtrar..." >
-	           {{#items}}
-	            <li  data-icon="false">
-	                <a class="autoli" on-tap="getSuc" data-transition="fade">
-	                   
-	                	{{#if distVis}}
-	                    <div class="small-8 column rPad">
-	                        <div class="nSucursal">{{correctCase(nombre)}}</div>
-	                        <div class="tags">{{descuentos[0].espec}} {{descuentos[0].perc}}%</div>
-	                         <div style="margin-left: 6px;">
-								<div data-role="none" class="starMini {{#if rate>0}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>1}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>2}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>3}}star-fill{{/if}}"></div>
-								<div data-role="none" class="starMini {{#if rate>4}}star-fill{{/if}}"></div>
-							</div>
-
-	                      
-	                    </div>
-	                    <div class="small-2 column rPad">
-	                        <div class="distancia">{{roundDist(dist)}} Km.</div> 
-	                        </div>
-	                    
-	                   	{{else}}
-
-	                   	<div class="small-10 column rPad">
-	                        <div class="nSucursal">{{correctCase(nombre)}}</div>
-	                        
-	                    </div>
-	                    	
-	                        {{/if}}
-	                    
-	                    <div class="small-1 column rPad">
-	                        <div class="fNaranja"> 
-	                        <img src="img/fNaranja.png">
-	                        </div>
-	                    </div>
-	                </a>
-	            </li>
-	            {{/items}}
-	        </ul>
-	    </div>
-	</div>
-
-	<div data-role="footer" data-position="fixed" style="position:fixed;bottom:0;"> 
-			<img class="imgBanner"  on-click="openLink" id="imgBanner" src="http://autotips.mx:3018/uploads/docs/{{img}}">
-	</div> 
 
 
-</script>
-
-<!-- Zona  ============================================================-->
-<script id='zonaT' type='text/ractive'>
-
-	<div id="wrapperZona" >
-	    <div id="scroller" >
-	        <ul data-role="listview"  id="listview" data-filter="true" data-filter-placeholder="filtrar estado..." >
-	            {{#each items}}
-	            <li  data-icon="false">
-	                <a class="autoli" on-tap="getDel" data-transition="fade">
-	                    <div class="small-10 column rPad">
-	                        <div  class="nSucursal">{{_id}}</div>
-	                       
-	                    </div>
-	                      <div class="small-1 column rPad">
-	                       <span style="margin-top:6px;" class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{count}}</span>
-	                    
-	                        </div>
-	                    <div class="small-1 column">
-	                        <div class="fNaranja"> 
-	                        <img src="img/fNaranja.png">
-	                        </div>
-	                    </div>
-	                </a>
-	            </li>
-	            {{/each}}
-	        </ul>
-	    </div>
-	</div>
-
-
-</script>
-
-
-<!-- Zona  ============================================================-->
-<script id='delegacionT' type='text/ractive'>
-
-	<div id="wrapperDel" class="wrapper" >
-	    <div id="scroller" >
-	        <ul data-role="listview" id="listview">
-	            {{#each items}}
-	            <li  data-icon="false">
-	                <a class="autoli" on-tap="getSuc" data-transition="fade">
-	                    <div class="small-10 column">
-	                        <div  class="nSucursal">{{_id}}</div>
-	                       
-	                    </div>
-	                      <div class="small-1 column rPad">
-	                       <span style="margin-top:6px;" class="ui-li-count ui-btn-up-c ui-btn-corner-all">{{count}}</span>
-	                    
-	                        </div>
-	                    <div class="small-1 column">
-	                        <div class="fNaranja"> 
-	                        <img src="img/fNaranja.png">
-	                        </div>
-	                    </div>
-	                </a>
-	            </li>
-	            {{/each}}
-	        </ul>
-	    </div>
-	</div>
-
-
-</script>
 
 <!--  MAPA ============================================================-->
 	<script id='mapaT' type='text/ractive'>
-    
-	
 
 	 <div role="main" class="ui-content">
 	<div style="display:none;"><input  id="pac-input" type="text" placeholder="Escribe tu dirección, Código Postal ó Ciudad" /></div>
@@ -485,29 +244,16 @@
 <div class="conte">
 
 
-	    <div class="small-12 column collapse">	       
-	        <div class="column info_direccion"> {{cCase(paciente)}}</div>
+	    <div class="small-12 column collapse gapbot">	       
+	        <div class="column info_direccion"> {{cCase(nombre)}}</div>
 	        <div class="column info_direccion">{{curp}}</div>
 	        
 	    </div>
 
 	    <div class=" crowAnchorBrd">
-       
 
-        {{#each estudiosE: num}}
-            <div class="small-12 columns">
-                <div id="no_Doc_{{num}}" class="small-3 columns cursor">{{estudiosE[num].idDoc}}</div>
-                <div  class="small-4 columns " >
-                  <div class="documentPicEst" id="doc{{num}}" style="background: url('{{estudiosE[num].documento}}') no-repeat center;width:100%;"> </div >
-                </div>
-                <!--<div  class="small-3 columns cursor">{{data.tratamiento.archivos[num].documento}}</div>-->
-                <div id="fechaDoc{{num}}" class="small-3 end columns " style="text-align:right;">{{estudiosE[num].fecha}}</div>          
-                <!--<div id="icoEliminarDoc{{num}}" on-click="removeEstudio" class="small-1 columns  cursor"><img src="img/cesto.jpg" width="20" height="20"></div>-->
-                
-            </div>
-        {{/each}}
-        
-        <div class="small-12 columns collapse">
+
+	    <div class="small-12 columns collapse">
             {{#each cargas}}
                  <div class="small-12 columns spacebot ">
                     <div class="crow inputHolder">
@@ -538,7 +284,38 @@
                  </div>
              {{/each}}
          </div>          
+       
+       <hr>
+
+          
+		
+
+        {{#each estudiosE: num}}
+            <div class="small-12 columns">
+                
+                <div  class="small-4 columns " >
+	                <a href="{{estudiosE[num].documento}}" class="swipebox" title="{{estudiosE[num].idDoc}}">
+	                	  <div class="documentPicEst" id="doc{{num}}" style="background: url('{{estudiosE[num].documento}}') no-repeat center;width:100%;"> </div >
+	                </a>
+                </div>
+
+                <div id="no_Doc_{{num}}" class="small-8 columns cursor">
+                {{estudiosE[num].idDoc}}
+                <br>
+                {{momentoFecha(estudiosE[num].fecha)}}
+
+                </div>
+                
+                
+                
+            </div>
+        {{/each}}
+        
+        
     </div>
+
+
+
   
 
 </div>
@@ -549,6 +326,211 @@
 	
 </script>
 
+
+
+
+<!--  Info Personales ============================================================-->
+<script id='personalesT' type='text/ractive'>
+
+<div id="wrapperInfo" class="wrapper">
+    <div id="scroller">
+        <div class="conte">
+            <div class="small-12 column collapse gapbot">
+                
+            	<table data-role="table" id="table_personales" data-mode="">
+			      <thead>
+			        <tr>
+			          <th></th>
+			          <th></th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			      	<tr>
+			          <th>Nombre completo</th>
+			          <td>{{nombre}} {{paterno}} {{materno}}</td>
+			        </tr>
+
+			        <tr>
+			          <th>Id Expediente</th>
+			          <td>{{uid}}</td>
+			        </tr>
+
+			      	{{#if curp!=undefined}}
+			        <tr>
+			          <th>Curp</th>
+			          <td>{{curp}}</td>
+			        </tr>
+			        {{/if}}
+
+			        {{#if fecha!=undefined}}
+			        <tr>
+			          <th>Fecha de Nacimiento</th>
+			          <td>{{fecha}}</td>
+			        </tr>
+			        {{/if}}
+
+			        {{#if edad!=undefined}}
+			        <tr>
+			          <th>Edad</th>
+			          <td>{{edad}} años</td>
+			        </tr>
+			        {{/if}}
+
+			        {{#if generales.gpoS!=undefined}}
+			        <tr>
+			          <th>Grupo Sanguineo</th>
+			          <td>{{generales.gpoS}}</td>
+			        </tr>
+			        {{/if}}
+
+
+			        {{#if sexo!=undefined}}
+			        <tr>
+			          <th>Sexo</th>
+			          <td>{{sexo}}</td>
+			        </tr>
+			        {{/if}}
+
+			        {{#if generales.civil!=undefined}}
+			        <tr>
+			          <th>Estado Civil</th>
+			          <td>{{generales.civil}}</td>
+			        </tr>
+			        {{/if}}
+
+
+			        {{#if generales.escolaridad!=undefined}}
+			        <tr>
+			          <th>Escolaridad</th>
+			          <td>{{generales.escolaridad}}</td>
+			        </tr>
+			        {{/if}}
+
+			        {{#if generales.religion!=undefined}}
+			        <tr>
+			          <th>Religión</th>
+			          <td>{{generales.religion}}</td>
+			        </tr>
+			        {{/if}}
+
+			        
+			        {{#if generales.gpo!=undefined}}
+			        <tr>
+			          <th>Grupo étnico</th>
+			          <td>{{generales.gpo}}</td>
+			        </tr>
+			        {{/if}}
+			      </tbody>
+			    </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+	
+</script>
+
+<!--  Info Antecedentes ============================================================-->
+<script id='antecedentesT' type='text/ractive'>
+
+<div id="wrapperInfo" class="wrapper">
+    <div id="scroller">
+        <div class="conte">
+            <div class="small-12 column collapse gapbot">
+                
+            	<table data-role="table" id="table_antecedentes" data-mode="reflow">
+			      <thead>
+			        <tr>
+			          <th></th>
+			          <th></th>
+			        </tr>
+			      </thead>
+			      <tbody>
+
+			       <tr>
+			          <th>Antecedentes personales patologicos</th>
+			          <td>{{antecedentes.patologicos_t}}</td>
+			        </tr>
+
+
+			      	<tr>
+			          <th>Antecedentes ginecobstétricos</th>
+			          <td>{{antecedentes.ginecobstetricos_t}}</td>
+			        </tr>
+
+			        <tr>
+			          <th>Antecedentes quirúrgicos o traumáticos</th>
+			          <td>{{antecedentes.quirurgicos_t}}</td>
+			        </tr>
+
+			         <tr>
+			          <th>Inmunizaciones</th>
+			          <td>{{antecedentes.inmunizaciones_t}}</td>
+			        </tr>
+  
+			      </tbody>
+			    </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+	
+</script>
+
+<!--  Info Personales ============================================================-->
+<script id='estudiosT' type='text/ractive'>
+
+	
+<div id="wrapperInfo" class="wrapper">
+    <div id="scroller">
+        <div class="conte">
+            <div class="small-12 column collapse gapbot">
+                <div class="column info_direccion">{{info.curp}}</div>
+            </div>
+            <div class=" crowAnchorBrd">
+
+                {{#each estudiosA:num0}}
+
+                {{#each estudiosE: num}}
+                <div class="small-12 columns">
+                    <div class="small-4 columns ">
+                        <a href="{{estudiosE[num].documento}}" class="swipebox" title="{{estudiosE[num].idDoc}}">
+                            <div class="documentPicEst" id="doc{{num}}" style="background: url('{{estudiosE[num].documento}}') no-repeat center;width:100%;"> </div>
+                        </a>
+                    </div>
+                    <div id="no_Doc_{{num}}" class="small-8 columns cursor">
+                        {{estudiosE[num].idDoc}}
+                        <br> {{momentoFecha(estudiosE[num].fecha)}}
+                    </div>
+                </div>
+                {{/each}}
+
+                {{/each}}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+	
+</script>
+
+<!--  Info Personales ============================================================-->
+<script id='historicoT' type='text/ractive'>
+
+<div id="wrapperInfo" class="wrapper">
+    <div id="scroller">
+        <div class="conte">
+            <div class="small-12 column collapse gapbot">
+                <div class="column info_direccion">Historico</div>
+                <div class="column info_direccion">{{curp}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+	
+</script>
 
 <!--
  	   <div data-role="panel" data-position-fixed="true" data-display="push" data-theme="b" id="nav-panel">
@@ -563,56 +545,31 @@
     </div>
      -->
 <!--  LOGIN ============================================================-->
-<script id='contactoT' type='text/ractive'>
+
+   <!-- AGENDA  ====================================================-->
+  <script id='agendaT' type='text/ractive'>
     
-			<div class="saveBtn small-12 column">
-			<div class="title">Envía tus comentarios</div>
-	        <div class="formLabel">Comentario:</div>
-            <textarea  data-clear-btn="true"  style="margin-left:7px height:100px; !important;" rows="8" name="textarea" id="comentario" data-mini="true"></textarea>
-
-             <div on-tap="sendComment" class="btnNaranja  column ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Enviar Mensaje</div>
-             <div class="vSpace"></div>
-             <hr>
-              <div class="btnNaranja  column ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini" on-tap="dial">Marcar a Autotips 01-800</div>  
- 
-            </div>
-
-
-            
-            
-          
-</script>
-
-
-<!--  incidencia ============================================================-->
-<script id='incidenciaT' type='text/ractive'>
+  <!--  <div id='external-events'>
+        <p><img src="img/trashcan.png" id="trash" alt=""></p>
+    </div>
+  -->  
     
-			<div class="saveBtn small-12 column">
-			<div class="title">Reportar incidencia</div>
-			<div class="formLabel">Tipo de incidencia:</div>
-			<select id="tipoI" class="comboC">
-				<option>No se respeto el descuento</option>
-				<option>El descuento es diferente al publicado</option>
-				<option>Datos del establecimiento no coinciden</option>
-				<option>Otro</option>
-			</select>
-
-			<div class="vSpace"></div>
-
-	        <div class="formLabel">Breve descripción de la incidencia:</div>
-            <textarea data-clear-btn="true"  style="margin-left:0px !important;" rows="8" name="textarea" id="comIncidencia" data-mini="true"></textarea>
+    
+    <div class="dataCont crow">
+     
+      <div id='calendar'></div>
+    </div>
 
 
-            <div on-tap="sendIncidencia" class="btnNaranja  column ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Enviar mensaje</div> 
+    <div id="modal"></div>
+
+    
+    <div style='clear:both'></div>
+      
+    
+  </script>
 
 
-           
-
-            </div>
-           
-            <div class="btnNaranja  column ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini" on-tap="dial">Marcar a Autotips 01-800</div> 
-
-</script>
 
 <!--  MENU ============================================================-->
 <script id='menuT' type='text/html'>
@@ -622,11 +579,16 @@
     <div data-role="panel" data-position="right" data-position-fixed="true" data-display="overlay" data-theme="b" id="add-form">
 
       
-            <div class="cardName">{{userData.nombre}}</div>
-        
+            <div class="cardName gapbot">{{userData.nombre}}</div>
+
+        	<br>
+
+
+
             <button on-tap="cerrarsesion" class="ui-btn" >cerrar sesión</button>
 
-            <div class="version">versión 2.0.1</div>
+
+            <div class="version">versión 1.2.1</div>
 
     </div><!-- /panel -->
 
@@ -645,4 +607,252 @@
 
 		</div>
 
+</script>
+
+
+
+
+  <script id='editarT' type='text/ractive'>
+
+  <div id="eCita">
+
+  <div id="frmCrearCita" title="Crear nuevo evento">
+      <form>
+        <div class="small-12 columns crowTitle">
+            <div class="row">
+            <div class="labelInput small-6 columns">Editar Cita</div>
+             <div style="height:30px;margin-top:2px;" on-click="deleteCita" class="columns btGCita orange  ">Borrar Cita</div>
+            </div>
+        </div>
+        <input type="hidden" id="input_date" />
+        <input type="hidden" id="input_allDay" />
+        <div class="row"><br></div>
+        <div class="row">
+            <div class="small-4 columns">
+              <div class="labelInput">Paciente</div>
+            </div>
+            <div class="small-7 columns collapse">
+              <input disabled type="texto" name="paciente" id="paciente" class="ginput"/>
+             
+            </div>  
+        </div>
+        <div class="row">
+            <div class="small-4 columns">
+              <div class="labelInput">Motivo </div>
+            </div>
+            <div class="small-7 columns collapse">
+              <input  type="texto" name="motivo" id="motivo" class="ginput"/>
+            </div>  
+        </div>
+  
+        <div class="row">
+        <div class="small-6 columns">
+                <div on-click="cancelarCita" class="columns btGCita orange spaceBt center">Cancelar</div>
+            </div>
+
+            <div class="small-6 columns">
+                <div on-click="updateCita" class="columns btGCita orange spaceBt center">Actualizar Cita</div>
+            </div>
+            
+        </div>
+        
+      </form>
+    </div>
+
+</div>
+
+  </script>  
+
+
+
+
+
+  <!--  Info Personales ============================================================-->
+<script id='notaDetT' type='text/ractive'>
+
+<div id="wrapperInfo" class="wrapper">
+    <div id="scroller">
+        <div class="conte">
+            <div class="small-12 column collapse gapbot">
+                
+            	<table data-role="table" id="table_notaDet" data-mode="">
+			      <thead>
+			        <tr>
+			          <th></th>
+			          <th></th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			      	<tr>
+			          <th>Fecha</th>
+			          <td>{{momentoFecha(closeTs)}}</td>
+			        </tr>
+
+			        <tr>
+			          <th>Nombre Médico</th>
+			          <td>{{nomMed}}</td>
+			        </tr>
+
+			        <tr>
+			          <th>Motivo de consulta o padecimiento actual</th>
+			          <td>{{cCase(padecimiento.motivo)}}</td>
+			        </tr>
+
+			        {{#if signos.peso!=undefined}}
+			        <tr>
+			          <th>Peso</th>
+			          <td>{{signos.peso}} kg</td>
+			        </tr>
+			        {{/if}}
+
+			        {{#if signos.circ!=undefined}}
+			        <tr>
+			          <th>Circunferencia abdominal</th>
+			          <td>{{signos.circ}} cm</td>
+			        </tr>
+			         {{/if}}
+
+			        {{#if signos.altura!=undefined}}
+			        <tr>
+			          <th>Altura</th>
+			          <td>{{signos.altura}} cm</td>
+			        </tr>
+			         {{/if}}
+			        
+
+
+			        {{#if temperatura!=undefined}}	
+			         <tr>
+			          <th>Temperatua</th>
+			          <td>{{signos.temperatura}} cm</td>
+			        </tr>
+			        {{/if}}
+
+
+			        {{#if signos.ta!=undefined}}
+			        <tr>
+			          <th>T.A.</th>
+			          <td>{{signos.ta}} mmHg</td>
+			        </tr>
+			         {{/if}}
+
+			         {{#if signos.fc!=undefined}}
+			        <tr>
+			          <th>F.C.</th>
+			          <td>{{signos.fc}} x</td>
+			        </tr>
+			         {{/if}}
+
+			        {{#if signos.fr!=undefined}}
+			        <tr>
+			          <th>F.R.</th>
+			          <td>{{signos.fr}} x</td>
+			        </tr>
+			         {{/if}}
+			       
+
+			          </tbody>
+			    	</table> 
+
+			    	<table data-role="table" id="table_notaDet" data-mode="reflow">
+			      <thead>
+			        <tr>
+			          <th></th>
+			          <th></th>
+			        </tr>
+			      </thead>
+			      <tbody>
+			        {{#if sintomas!=undefined}}
+			        <tr>
+			          <th>Síntomas</th>
+			          <td>{{cCase(sintomas)}}</td>
+			        </tr>
+			        {{/if}}
+
+			  
+
+			         {{#if habitus!=undefined}}
+			        <tr>
+			          <th>Habitus</th>
+			          <td>{{cCase(habitus)}}</td>
+			        </tr>
+			        {{/if}}
+
+			         {{#if cabcue!=undefined}}
+			        <tr>
+			          <th>Cabeza y Cuello</th>
+			          <td>{{cCase(cabcue)}}</td>
+			        </tr>
+			        {{/if}}
+
+			         {{#if torax!=undefined}}
+			        <tr>
+			          <th>Torax</th>
+			          <td>{{cCase(torax)}}</td>
+			        </tr>
+			        {{/if}}
+
+			         {{#if genitales!=undefined}}
+			        <tr>
+			          <th>Genitales</th>
+			          <td>{{cCase(genitales)}}</td>
+			        </tr>
+			        {{/if}}
+
+			          {{#if extremidades!=undefined}}
+			        <tr>
+			          <th>Extremidades</th>
+			          <td>{{cCase(extremidades)}}</td>
+			        </tr>
+			        {{/if}}
+
+			          {{#if columna!=undefined}}
+			        <tr>
+			          <th>Columna</th>
+			          <td>{{cCase(columna)}}</td>
+			        </tr>
+			        {{/if}}
+
+			        {{#if abdomen!=undefined}}
+			        <tr>
+			          <th>Abdomen</th>
+			          <td>{{cCase(abdomen)}}</td>
+			        </tr>
+			        {{/if}}
+
+
+			        {{#if tratamiento.plan_t!=undefined}}
+			        <tr>
+			          <th>Plan de tratamiento y notas higiénico dietéticas</th>
+			          <td>{{tratamiento.plan_t}}</td>
+			        </tr>
+			        {{/if}}
+
+			        {{#if diagnostico.enfermedad_t!=undefined}}
+			        <tr>
+			          <th>Diagnostico</th>
+			          <td>{{cCase(diagnostico.enfermedad_t)}}</td>
+			        </tr>
+			        {{/if}}
+
+
+			         {{#if estudios.estudio_t!=undefined}}
+			        <tr>
+			          <th>Estudios a realizar</th>
+			          <td>{{estudios.estudio_t}}</td>
+			        </tr>
+			        {{/if}}
+
+
+
+			          </tbody>
+			    	</table> 
+			      
+			    
+
+            </div>
+        </div>
+    </div>
+</div>
+	
 </script>

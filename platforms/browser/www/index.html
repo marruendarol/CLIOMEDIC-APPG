@@ -2,18 +2,20 @@
 <html>
 <head>
 	<title>CLIOMEDIC</title>
-<!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">   -->
-<!-- CSS -->
+
+<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.cliomedic.com http://localhost:3030 *.cliomedic.com:3030">
+
 <link rel="stylesheet" href="css/foundation.min.css">
 <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css" />
 <link rel="stylesheet" href="css/main.css">
 <link rel='stylesheet' href='css/jquery.mobile.simultaneous-transitions-replace.css'/>
-
+<link rel="stylesheet" href="css/swipebox.min.css">
+<link rel="stylesheet" href="css/fullcalendar.min.css">
 
 <script src="js/lib/iscroll.js"></script>
 <script src="cordova.js"></script>
 
-<script src="js/lib/jquery-1.11.2.min.js"></script>
+<script src="js/lib/jquery-2.1.0.min.js"></script>
 <script type="text/javascript">
    $(document).bind("mobileinit", function(){
      $.mobile.hashListeningEnabled = false;
@@ -27,9 +29,14 @@
 <script src="js/lib/foundation/foundation.js"></script>
 <script src="js/lib/ractive.js"></script>
 
+<script src="js/lib/moment.min.js"></script>
+
 <script src="js/lib/ractive-events-keys.js"></script>
 <script src="js/lib/ractive-events-tap.js"></script>
 <script src="js/lib/ractive-events-hover.js"></script>
+
+<script src="js/lib/fullcalendar.min.js"></script>
+<script src="js/lib/lang-all.js"></script>
 
 <script src="js/lib/tappy.js"></script>
 <script src="js/lib/jquery.maskedinput-1.4.min.js"></script>
@@ -40,6 +47,9 @@
 <script src='js/utilities/utilities.js'></script>
 
 
+<script src="js/swipebox/jquery.swipebox.min.js"></script>
+
+
 <!-- CONTROLLERS -->
 <script src="js/controllers/ctrl_core.js"></script>     <!-- ROUTE CONTROLLER -->
 <script src="js/controllers/mainController.js"></script>  <!-- FOUNDATION &  DB CONTROLLER -->
@@ -47,12 +57,14 @@
 <script src="js/controllers/ctrl_loginS.js"></script>   <!-- START CORDOVA CONTROLLER -->
 <script src="js/controllers/ctrl_uploadRack.js"></script>   <!-- START CORDOVA CONTROLLER -->
 
+<script src="js/controllers/ctrl_agendaM.js"></script>   <!-- START CORDOVA CONTROLLER -->
+
 
 
 <script src="js/controllers/ctrl_home.js"></script>   <!-- START CORDOVA CONTROLLER -->
 
-
-<script src='https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBcrQxNRRRn5djIHjj5fXV7TP8dLz0WqN8'></script>
+<!--
+<script src='https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBcrQxNRRRn5djIHjj5fXV7TP8dLz0WqN8'></script>-->
 
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <meta charset="UTF-8">
@@ -71,8 +83,8 @@
 <!-- ********************************************************************* -->
 <div data-role="page" id="firstP">
 
-        <div id="logoHeader">
-        <img src="img/logo2.png">
+        <div id="logoHeader" class="gapbot">
+            <img src="img/logoForma.png">
         </div>
 
     <div role="main" id="firstPCont" class="ui-content"></div><!-- /content -->
@@ -99,13 +111,13 @@
 
 </div>
 <!-- ********************************************************************* -->
-<div data-role="page" id="insertCard">
+<div data-role="page" id="calendar">
      <div data-role="header" data-position="fixed">
         <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
-        <h1>Agregar Tarjeta</h1>
+        <h1>Calendario</h1>
     </div>
 
-    <div role="main" id="insertCardP" class="ui-content"></div><!-- /content -->
+    <div role="main" id="calendarP" class="ui-content"></div><!-- /content -->
 
 </div>
 <!-- ********************************************************************* -->
@@ -145,7 +157,7 @@
             <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
         </div>
          <div class="small-8 column rPad">
-              <div class="titleList">Expediente</div>
+              <div class="titleList">Pacientes</div>
          </div>
          <div class="small-2 column rPad">
             <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
@@ -155,216 +167,136 @@
      <div role="main" id="listPCont" class=""></div><!-- /content -->
 </div>
 <!-- ********************************************************************* -->
-<div data-role="page" id="especialidadR">
+
+
+<div data-role="page" id="listNotas">
       
     <div data-role="header" data-position="fixed">
       <div class="small-2 column rPad">
             <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
         </div>
          <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Especialidades</div>
+              <div id="titleList" class="titleList">Notas de evolución</div>
          </div>
          <div class="small-2 column rPad">
             <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
         </div>   
     </div>
 
-    <div role="main" id="especialidadRP" class="ui-content"></div><!-- /content -->
+    <div role="main" id="listNotasP" class=""></div><!-- /content -->
 
 </div>
 
-<div data-role="page" id="especialidad">
+
+<div data-role="page" id="notaDet">
       
     <div data-role="header" data-position="fixed">
       <div class="small-2 column rPad">
             <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
         </div>
          <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Sub -Especialidad</div>
+              <div id="titleList" class="titleList">Nota de evolución</div>
          </div>
          <div class="small-2 column rPad">
             <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
         </div>   
     </div>
 
-    <div role="main" id="especialidadP" class="ui-content"></div><!-- /content -->
+    <div role="main" id="notaDetP" class=""></div><!-- /content -->
 
 </div>
-<!-- ********************************************************************* -->
-<div data-role="page" id="zona">
-    
+
+
+<div data-role="page" id="expedientSec">
+      
     <div data-role="header" data-position="fixed">
       <div class="small-2 column rPad">
             <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
         </div>
          <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Estados</div>
+              <div id="titleList" class="titleList">Expediente</div>
          </div>
          <div class="small-2 column rPad">
             <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
         </div>   
     </div>
 
-    <div role="main" id="zonaP" class="ui-content"></div><!-- /content -->
+    <div role="main" id="expedientesSecP" class=""></div><!-- /content -->
 
 </div>
-<!-- ********************************************************************* -->
-<div data-role="page" id="delegacion">
 
+
+<div data-role="page" id="personalesView">
     <div data-role="header" data-position="fixed">
-      <div class="small-2 column rPad">
-            <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
+        <div class="small-2 column rPad">
+            <div class="bButton" data-direction="reverse"><img src="img/backArrow.png"></div>
         </div>
-         <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Delegación</div>
-         </div>
-         <div class="small-2 column rPad">
-            <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
-        </div>   
-    </div>
-    <div role="main" id="delegacionP" class="ui-content"></div><!-- /content -->
-
-</div>
-<!-- ********************************************************************* -->
-<div data-role="page" id="descuentos">
-      <div data-role="header" data-position="fixed">
-      <div class="small-2 column rPad">
-            <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
+        <div class="small-8 column rPad">
+            <div id="titleList" class="titleList">Datos Personales</div>
         </div>
-         <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Descuentos</div>
-         </div>
-         <div class="small-2 column rPad">
-            <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
-        </div>   
-    </div>
-     <div role="main" id="descuentosP" class=""></div><!-- /content -->
-
-</div>
-<!-- LISTADO DE DESCUENTOS ********************************************************************* -->
-<div data-role="page" id="listDesc">
-     <div data-role="header" data-position="fixed">
-      <div class="small-2 column rPad">
-            <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
+        <div class="small-2 column rPad">
+            <div class="hButton" data-direction="reverse"><img src="img/home.png"></div>
         </div>
-         <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Listado Descuentos</div>
-         </div>
-         <div class="small-2 column rPad">
-            <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
-        </div>   
     </div>
-     <div role="main" id="listDescP" class=""></div><!-- /content -->
-
-</div>
-
-<!-- LISTADO DE DESCUENTOS ********************************************************************* -->
-<div data-role="page" id="descMayor">
-     <div data-role="header" data-position="fixed">
-      <div class="small-2 column rPad">
-            <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
-        </div>
-         <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Mayor Porcentaje</div>
-         </div>
-         <div class="small-2 column rPad">
-            <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
-        </div>   
-    </div>
-     <div role="main" id="listMayorP" class=""></div><!-- /content -->
-
+    <div role="main" id="personalesP" class="ui-content"></div>
+    <!-- /content -->
 </div>
 
 
-
-<!-- BUSQUEDA ********************************************************************* -->
-<div data-role="page" id="busqueda">
-     <div data-role="header" data-position="fixed">
-      <div class="small-2 column rPad">
-            <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
-        </div>
-         <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Busqueda</div>
-         </div>
-         <div class="small-2 column rPad">
-            <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
-        </div>   
-    </div>
-     <div role="main" id="busquedaP" class=""></div><!-- /content -->
-
-</div>
-
-
-<!-- DESCUENTOS POR PORCENTAJE ********************************************************************* -->
-<div data-role="page" id="porcDesc">
-     <div data-role="header" data-position="fixed">
-      <div class="small-2 column rPad">
-            <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
-        </div>
-         <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Descuentos por porcentaje</div>
-         </div>
-         <div class="small-2 column rPad">
-            <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
-        </div>   
-    </div>
-     <div role="main" id="porcDescP" class=""></div><!-- /content -->
-
-</div>
-<!-- DESCUENTOS POR ESPECIALIDAD *********************************** -->
-<div data-role="page" id="especDesc">
-     <div data-role="header" data-position="fixed">
-      <div class="small-2 column rPad">
-            <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
-        </div>
-         <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Descuentos por especialidad</div>
-         </div>
-         <div class="small-2 column rPad">
-            <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
-        </div>   
-    </div>
-     <div role="main" id="especDescP" class=""></div><!-- /content -->
-
-</div>
-
-<!-- DESCUENTOS POR ESPECIALIDAD *********************************** -->
-<div data-role="page" id="zonaDesc">
-     <div data-role="header" data-position="fixed">
-      <div class="small-2 column rPad">
-            <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
-        </div>
-         <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Descuentos por Zona</div>
-         </div>
-         <div class="small-2 column rPad">
-            <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
-        </div>   
-    </div>
-     <div role="main" id="zonaDescP" class=""></div><!-- /content -->
-
-</div>
-
-<!-- ********************************************************************* -->
-<div data-role="page" id="calificacion"></div>
-<!-- ********************************************************************* -->
-<div data-role="page" id="mapa">
+<div data-role="page" id="antecedentesView">
     <div data-role="header" data-position="fixed">
-      <div class="small-2 column rPad">
-            <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
+        <div class="small-2 column rPad">
+            <div class="bButton" data-direction="reverse"><img src="img/backArrow.png"></div>
         </div>
-         <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Ubicación Sucursal</div>
-         </div>
-         <div class="small-2 column rPad">
-            <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
-        </div>   
+        <div class="small-8 column rPad">
+            <div id="titleList" class="titleList">Antecedentes</div>
+        </div>
+        <div class="small-2 column rPad">
+            <div class="hButton" data-direction="reverse"><img src="img/home.png"></div>
+        </div>
     </div>
-     <div role="main" id="mapaP" class=""></div><!-- /content -->
+    <div role="main" id="antecedentesP" class="ui-content"></div>
+    <!-- /content -->
 </div>
+<div data-role="page" id="estudiosView">
+    <div data-role="header" data-position="fixed">
+        <div class="small-2 column rPad">
+            <div class="bButton" data-direction="reverse"><img src="img/backArrow.png"></div>
+        </div>
+        <div class="small-8 column rPad">
+            <div id="titleList" class="titleList">Estudios</div>
+        </div>
+        <div class="small-2 column rPad">
+            <div class="hButton" data-direction="reverse"><img src="img/home.png"></div>
+        </div>
+    </div>
+    <div role="main" id="estudiosP" class="ui-content"></div>
+    <!-- /content -->
+</div>
+<div data-role="page" id="historicoView">
+    <div data-role="header" data-position="fixed">
+        <div class="small-2 column rPad">
+            <div class="bButton" data-direction="reverse"><img src="img/backArrow.png"></div>
+        </div>
+        <div class="small-8 column rPad">
+            <div id="titleList" class="titleList">Histórico de Notas</div>
+        </div>
+        <div class="small-2 column rPad">
+            <div class="hButton" data-direction="reverse"><img src="img/home.png"></div>
+        </div>
+    </div>
+    <div role="main" id="historicoP" class="ui-content"></div>
+    <!-- /content -->
+</div>
+
+
+
+
 <!-- ********************************************************************* -->
 <div data-role="page" id="mapaSuc"></div>
 <!-- ********************************************************************* -->
+
+
 <div data-role="page" id="infoSuc">
   <div data-role="header" data-position="fixed">
       <div class="small-2 column rPad">
@@ -397,22 +329,7 @@
     <div role="main" id="contactoP" class="ui-content"></div><!-- /content -->
 </div>
 
-<!-- ********************************************************************* -->
-<div data-role="page" id="incidencia">
-       <div data-role="header" data-position="fixed">
-      <div class="small-2 column rPad">
-            <div class="bButton"  data-direction="reverse"><img src="img/backArrow.png"></div>
-        </div>
-         <div class="small-8 column rPad">
-              <div id="titleList" class="titleList">Incidencia</div>
-         </div>
-         <div class="small-2 column rPad">
-            <div class="hButton"  data-direction="reverse"><img src="img/home.png"></div>
-        </div>   
-    </div>
 
-    <div role="main" id="incidenciaP" class="ui-content"></div><!-- /content -->
-</div>
 <!-- ********************************************************************* -->
 
 <div data-role="page" id="contactoListo">

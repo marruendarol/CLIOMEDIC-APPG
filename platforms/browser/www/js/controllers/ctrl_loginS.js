@@ -47,6 +47,8 @@ var ctrl_loginS = {
 
 	},
 	checkLogin : function(data){
+
+		console.log(serverURL,"SERVER URL")
         $.ajax({
             type: 'POST',
             data: data,
@@ -65,14 +67,17 @@ var ctrl_loginS = {
             		ctrl_loginS.changePage();	
             	}else{
             		jqm.popup( {text:"Usuario y/o contraseña inválido",title:"Error."})
-            		//$.mobile.changePage( "#first", {});
+            		$.mobile.changePage( "#firstP", {});
             	}
             	
-        });	
+        }).fail(function( response, status ,a ) {
+	       console.log(response,status,a)
+	    });   
 	},
 	initSocket : function(){
 		console.log("iniciando socket")
-		socket = io('https://104.131.162.87:3000/cliomedic');
+		//socket = io('https://cliomedic.com/cliomedic');
+		socket = io(serverURL + '/cliomedic');
     	socket.on('connect', function () { 
     		//console.log("connecting remote",userRoom)
     		socket.emit('create',userRoom);  
