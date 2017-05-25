@@ -6,6 +6,8 @@ distVis = false;
 titleList = "Expedientes Abiertos";
 var spec = "";
 var expInt;
+var pacs = []
+var currList = [];
 
 var ctrl_list = {
 	data : {},
@@ -27,12 +29,18 @@ var ctrl_list = {
 	},
 	exp : function(id){
 
-		var pacs = []
-		var currList = [];
+		currList = [];
+		pacs = [];
 		 
-		socket.removeListener('opened'+userRoom);
-        socket.on('opened'+userRoom, function(response){      	
-		  		if(currList.indexOf(response.curp)==-1){
+		socket.removeListener('opened'+userRoom,ctrl_list.expResponse);
+        socket.on('opened'+userRoom, ctrl_list.expResponse);
+
+        expInt =  setInterval(function(){currList=[];pacs=[];ctrl_list.render(pacs)},15000)
+
+        ctrl_list.render(pacs)
+	},
+	expResponse : function(response){
+		if(currList.indexOf(response.curp)==-1){
 		  			currList.push(response.curp)
 		  			pacs.push(response)
 		  		}else{
@@ -44,15 +52,12 @@ var ctrl_list = {
 		
 
         ctrl_list.render(pacs)
-
-        });
-
-        expInt =  setInterval(function(){currList=[];pacs=[];ctrl_list.render(pacs)},15000)
-
-        ctrl_list.render(pacs)
 	},
 	//------------------------------------------ESPECIALIDAD
 	getPacientes : function(id){
+
+		clearInterval(expInt);
+		socket.removeListener('opened'+userRoom,ctrl_list.expResponse);
 		socket.removeListener('getPacientes');
         socket.on('getPacientes', function(response){
             

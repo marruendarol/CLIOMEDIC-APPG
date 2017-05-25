@@ -43,8 +43,8 @@ var ctrl_core = {
 
 
 		try{
-			clearInterval(expInt);
-			socket.removeListener('opened'+userRoom);	
+		//	clearInterval(expInt);
+		//	socket.removeListener('opened'+userRoom,ctrl_list.expResponse);
 		} catch (error) {}
 		
 
