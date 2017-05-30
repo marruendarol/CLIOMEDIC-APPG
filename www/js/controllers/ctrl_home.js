@@ -13,6 +13,7 @@ var ctrl_home = {
 	render : function(){
 
 
+
 		$(ctrl_home.pageDiv).empty();
 
 		ctrl_home.data  = {
@@ -51,7 +52,7 @@ var ctrl_home = {
 		ctrl_home.mainObj.on('cerrarsesion',function(event){
 			mainC.clickAnim(event.node)
 			localStorage.clear();
-			$.mobile.changePage("#firstP");
+			$.mobile.changePage("#login");
 		});
 
 

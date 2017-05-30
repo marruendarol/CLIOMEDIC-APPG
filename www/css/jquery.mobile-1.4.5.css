@@ -1491,7 +1491,7 @@ div.ui-mobile-viewport {
 	border-width: 0;
 	overflow: visible;
 	overflow-x: hidden;
-	padding: 1em;
+	padding: 0;
 }
 /* Corner styling for dialogs and popups */
 .ui-corner-all > .ui-header:first-child,
@@ -3120,6 +3120,8 @@ fieldset.ui-controlgroup {
 }
 .ui-popup {
 	position: relative;
+	padding: 10px;
+}
 }
 .ui-popup.ui-body-inherit {
 	border-width: 1px;
@@ -3180,7 +3182,7 @@ fieldset.ui-controlgroup {
 .ui-popup-container .ui-content > h4:first-child,
 .ui-popup-container .ui-content > h5:first-child,
 .ui-popup-container .ui-content > h6:first-child {
-	margin-top: 0;
+	margin-top: 10px;
 }
 .ui-popup-container .ui-content > p:last-child,
 .ui-popup-container .ui-content > h1:last-child,

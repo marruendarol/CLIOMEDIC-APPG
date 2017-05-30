@@ -29,7 +29,9 @@ var ctrl_estudios = {
 
 					setTimeout(function(){ myScroll.refresh() }, 500);
 
-				
+					
+				$( '.swipebox' ).swipebox();
+
 			}else{
 			
 

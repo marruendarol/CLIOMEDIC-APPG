@@ -14,7 +14,7 @@ var ctrl_loginS = {
 
 		var username= window.localStorage.getItem("username");
 			if(username!=undefined){
-				$.mobile.changePage("#mainScreen")
+				$.mobile.changePage("#login")
 			}else{
 				ctrl_loginS.render();
 			}
@@ -30,6 +30,17 @@ var ctrl_loginS = {
 
 		var mainObj = template.render('#loginT',ctrl_loginS.pageDiv,{},null)
 
+
+		
+		$(document).on('focus', 'input, textarea', function() {
+		    $("#logoLoginB").hide();
+		});
+
+		//show footer when input is NOT on focus
+		$(document).on('blur', 'input, textarea', function() {
+		    $("#logoLoginB").show();
+		});
+
 		mainObj.on('ingresar',function(){
 			var user = $('#name').val();
 			var pass = $('#password').val();
@@ -38,7 +49,7 @@ var ctrl_loginS = {
 		});
 
 			mainObj.on('cancelar',function(){
-			$.mobile.changePage( "#mainScreen");
+			$.mobile.changePage( "#login");
 		});
 
 
@@ -66,8 +77,8 @@ var ctrl_loginS = {
     				ctrl_loginS.initSocket()
             		ctrl_loginS.changePage();	
             	}else{
-            		jqm.popup( {text:"Usuario y/o contraseña inválido",title:"Error."})
-            		$.mobile.changePage( "#firstP", {});
+            		jqm.popup( {text:"Usuario y/o contraseña inválido",title:"Ingreso"})
+            		//$.mobile.changePage( "#login", {});
             	}
             	
         }).fail(function( response, status ,a ) {

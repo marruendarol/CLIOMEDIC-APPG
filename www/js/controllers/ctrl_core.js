@@ -14,7 +14,7 @@ var ctrl_core = {
 			if(username!=undefined){
 				ctrl_loginS.checkLogin({username:window.localStorage.getItem("username"),password:md5(window.localStorage.getItem("password"))})
 			}else{
-				$.mobile.changePage("#firstP")
+				$.mobile.changePage("#login")
 			}
 
 	  		

@@ -31,10 +31,12 @@ var ctrl_list = {
 
 		currList = [];
 		pacs = [];
+
+	
 		 
 		socket.removeListener('opened'+userRoom,ctrl_list.expResponse);
         socket.on('opened'+userRoom, ctrl_list.expResponse);
-
+        console.log("Regreso socket")
         expInt =  setInterval(function(){currList=[];pacs=[];ctrl_list.render(pacs)},15000)
 
         ctrl_list.render(pacs)
@@ -56,7 +58,9 @@ var ctrl_list = {
 	//------------------------------------------ESPECIALIDAD
 	getPacientes : function(id){
 
+		jqm.showLoader("Cargando pacientes...")
 		clearInterval(expInt);
+		expInt = null;
 		socket.removeListener('opened'+userRoom,ctrl_list.expResponse);
 		socket.removeListener('getPacientes');
         socket.on('getPacientes', function(response){
@@ -68,7 +72,7 @@ var ctrl_list = {
             //ctrl_pacienteM.RS = Defiant.getSnapshot(response);
             //ctrl_pacienteM.rObj.set('pacientes', data);
             //createGrowl("App info","Registro Actualizado con éxito.",false,'bg_ok');
-            
+            jqm.hideLoader();
              ctrl_list.renderPacientes(pacs)
 
         });
