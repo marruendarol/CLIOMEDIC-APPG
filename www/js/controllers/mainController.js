@@ -9,7 +9,7 @@
 
 var userLat = 20.6596
 var userLng = -103.3496
-var serverURL = "https:/cliomedic.com/";
+var serverURL = "https://cliomedic.com/";
 //var serverURL = "http://192.168.100.15:3030";
 var paramsPage = {}
 var scrolls = false;
