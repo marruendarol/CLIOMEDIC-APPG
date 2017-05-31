@@ -7,8 +7,6 @@ var ctrl_info = {
 	pageDiv : "#infoSucP",
 
 	init : function(data,template){
-
-		console.log(data,"DATA INICIALÑ")
 		ctrl_info.data = data;
 		ctrl_info.render();
 	},
@@ -89,9 +87,12 @@ var ctrl_info = {
 		 	click:true,scrollbars:scrolls,mouseWheel:true,interactiveScrollbars: true })
 
 
-		setTimeout(function(){ myScroll.refresh() }, 500);
+		
 		
 		$( '.swipebox' ).swipebox();
+
+
+		setTimeout(function(){ myScroll.refresh() }, 500);
 	}
 }
 
