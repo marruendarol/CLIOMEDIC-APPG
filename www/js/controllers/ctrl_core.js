@@ -10,13 +10,27 @@ var ctrl_core = {
 	init : function(){	
 		ctrl_core.routeListeners();
 
-			var username= window.localStorage.getItem("username");
-			if(username!=undefined){
-				ctrl_loginS.checkLogin({username:window.localStorage.getItem("username"),password:md5(window.localStorage.getItem("password"))})
-			}else{
-				$.mobile.changePage("#login")
-			}
+		//	var username= window.localStorage.getItem("username");
+		//	if(username!=undefined){
+		//		ctrl_loginS.checkLogin({username:window.localStorage.getItem("username"),password:md5(window.localStorage.getItem("password"))})
+		//	}else{
+		//		$.mobile.changePage("#login")
+		//	}
+//
 
+		//$.mobile.changePage("#login")
+
+
+
+		var username= window.localStorage.getItem("username");
+		if(username!=undefined){
+			     ctrl_loginS.initSocket()
+			   //  alert("main")
+				$.mobile.changePage("#mainScreen")
+			}else{
+				  var params = { init : 'ctrl_loginS.init' }
+	    	   ctrl_core.loadController("./js/controllers/ctrl_loginS.js",params);
+			}
 	  		
 	},
 	loadController : function(controllerURL,params,reload){
@@ -41,26 +55,11 @@ var ctrl_core = {
 	},
 	routeListeners : function(){
 
-
-		try{
-		//	clearInterval(expInt);
-		//	socket.removeListener('opened'+userRoom,ctrl_list.expResponse);
-		} catch (error) {}
-		
-
 		$(document).on("pagebeforeshow","#initialBlank", function() {
-	       	var username= window.localStorage.getItem("username");
-			if(username!=undefined){
-				$.mobile.changePage("#mainScreen")
-			}else{
-				$.mobile.changePage("#firstP")
-			}
+	       	
 	    });
 
-		$(document).on("pagebeforeshow","#firstP", function() {
-	        var params = { init : 'ctrl_first.init' }
-	    	ctrl_core.loadController("./js/controllers/ctrl_first.js",params);
-	    });
+
 
 		$(document).on("pagebeforeshow","#login", function() {
 	        	        var params = { init : 'ctrl_loginS.init' }

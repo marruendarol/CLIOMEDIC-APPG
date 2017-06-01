@@ -11,34 +11,23 @@ var ctrl_loginS = {
 	pageDiv : "#loginP",
 	init : function(data,template){
 		ctrl_loginS.data = data;
-
-		var username= window.localStorage.getItem("username");
-			if(username!=undefined){
-				$.mobile.changePage("#login")
-			}else{
-				ctrl_loginS.render();
-			}
-
-
-		
+		ctrl_loginS.render();
 	},
 	render : function(){
 
 
-
 		$(ctrl_loginS.pageDiv).empty();
-
 		var mainObj = template.render('#loginT',ctrl_loginS.pageDiv,{},null)
 
-
-		
 		$(document).on('focus', 'input, textarea', function() {
-		    $("#logoLoginB").hide();
+	  try {
+		   $("#logoLoginB").hide(); } catch (e) {}
 		});
 
-		//show footer when input is NOT on focus
 		$(document).on('blur', 'input, textarea', function() {
+			try {
 		    $("#logoLoginB").show();
+		    } catch (e) {}
 		});
 
 		mainObj.on('ingresar',function(){
@@ -49,7 +38,7 @@ var ctrl_loginS = {
 		});
 
 			mainObj.on('cancelar',function(){
-			$.mobile.changePage( "#login");
+			$.mobile.changePage("#login");
 		});
 
 
@@ -59,15 +48,14 @@ var ctrl_loginS = {
 	},
 	checkLogin : function(data){
 
-		console.log(serverURL,"SERVER URL")
+		
         $.ajax({
             type: 'POST',
             data: data,
             url: serverURL + '/user/acceso',
             dataType: 'JSON'
             }).done(function( response ) {
-            	console.log(response,"RESPUESTA ACCESO")
-              	jqm.hideLoader();
+              	
             	if(response.info!="-1"){
             		userdata = response.info
             		userRoom = response._id;
@@ -75,9 +63,10 @@ var ctrl_loginS = {
             		window.localStorage.setItem("password", response.info.passwordPlain);
             		window.localStorage.setItem("nombre", response.info.nombrecompleto);
     				ctrl_loginS.initSocket()
-            		ctrl_loginS.changePage();	
+            		$.mobile.changePage("#mainScreen")
             	}else{
             		jqm.popup( {text:"Usuario y/o contraseña inválido",title:"Ingreso"})
+            		jqm.hideLoader();
             		//$.mobile.changePage( "#login", {});
             	}
             	
@@ -113,7 +102,5 @@ var ctrl_loginS = {
 	        });
     	});
     },
-	changePage : function(){
-		$.mobile.changePage( "#mainScreen", {});
-	}
+	
 }

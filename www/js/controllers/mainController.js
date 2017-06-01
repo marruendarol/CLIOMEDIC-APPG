@@ -51,7 +51,7 @@ var mainC = {
 }
 
 function showLoading( on, text ) {  // on: true|false
-    try {
+
     setTimeout( function() {
       if ( on )
         $.mobile.loading( "show",  {
@@ -65,17 +65,22 @@ function showLoading( on, text ) {  // on: true|false
         $.mobile.loading( "hide")
         $('.ui-loader').remove();  // removes the loader div from the body
       }       
-    }, 1); } catch (e) {}
+    }, 1); 
 }
+
+
 
 var jqm = {
 	showLoader : function(text){
+		
 		showLoading(true,text)
 	},
 	hideLoader : function(){
+		
 		showLoading(false)
 	},
 	popup : function(params){
+		
 		$('#pop_Title').html(params.title)
 		$('#pop_text').html(params.text)
 		$( "#pop1" ).popup( "open" )

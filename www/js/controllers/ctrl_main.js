@@ -20,6 +20,7 @@ function onDeviceReady(){
 
     $.support.cors = true;
     $.mobile.allowCrossDomainPages = true;
+
    initApp();
 }
 

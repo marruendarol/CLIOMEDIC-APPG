@@ -8,6 +8,8 @@
     },
     "installed_plugins": {
         "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
             "PACKAGE_NAME": "com.nucleo.cliomedic"
         },
         "cordova-plugin-device": {
@@ -17,12 +19,16 @@
             "PACKAGE_NAME": "com.nucleo.cliomedic"
         },
         "cordova-plugin-geolocation": {
+            "GEOLOCATION_USAGE_DESCRIPTION": " ",
             "PACKAGE_NAME": "com.nucleo.cliomedic"
         },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.nucleo.cliomedic"
         },
         "cordova-plugin-media-capture": {
+            "CAMERA_USAGE_DESCRIPTION": "Subir Expediente",
+            "MICROPHONE_USAGE_DESCRIPTION": "Subir Expediente",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": "Subir Expediente",
             "PACKAGE_NAME": "com.nucleo.cliomedic"
         },
         "cordova-plugin-network-information": {
