@@ -16,7 +16,7 @@
 
 
             <div class="labelT">Correo:</div>
-            <input type="text" name="name" id="name" value="" data-clear-btn="true" data-mini="true">
+            <input type="text" name="name" id="name"  onkeyup="return forceLower(this);" value="" data-clear-btn="true" data-mini="true">
              <div class="labelT">Contraseña: </div>
             <input type="password" name="password" id="password" value="" data-clear-btn="true" autocomplete="off" data-mini="true">
 
@@ -220,6 +220,11 @@
                     </a>
                 </li>
                 {{/data}}
+
+                  {{#if data.length==0}}
+                	<div class="emptyTitle">El paciente no cuenta con Notas de evolución</div>
+                {{/if}}
+
             </ul>
         </div>
     </div>
@@ -255,8 +260,8 @@
 
 
 	    <div class="small-12 column collapse gapbot">	       
-	        <div class="column info_direccion"> {{cCase(nombre)}}</div>
-	        <div class="column info_direccion">{{curp}}</div>
+	        <div class="column info_direccion"> {{cCase(data.paciente)}}</div>
+	        <div class="column info_direccion">{{data.curp}}</div>
 	        
 	    </div>
 
@@ -264,7 +269,7 @@
 
 
 	    <div class="small-12 columns collapse">
-            {{#each cargas}}
+            {{#each data.cargas}}
                  <div class="small-12 columns spacebot ">
                     <div class="crow inputHolder">
                     <div class="small-12 columns collapse">
@@ -272,7 +277,7 @@
                         <label id="agregar_{{nombre}}" class="agregarcom">
                           <div id="buttonUpload_{{nombre}}" on-click="selectFileDoc" class="buttonUpload"><i class="fa fa-folder-open-o"></i> 
 
-                     <div class="btnNaranja  column ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Agregar archivo</div>
+                     <div class="btnNaranja  column ui-btn ui-shadow ui-corner-all ui-btn-a ui-mini">Anexar imagen</div>
                      </div>
                       </label>
                       <div>
@@ -300,19 +305,19 @@
           
 		
 
-        {{#each estudiosE: num}}
+        {{#each data.estudiosE: num}}
             <div class="small-12 columns">
                 
                 <div  class="small-4 columns " >
-	                <a href="{{estudiosE[num].documento}}" class="swipebox" title="{{estudiosE[num].idDoc}}">
-	                	  <div class="documentPicEst" id="doc{{num}}" style="background: url('{{estudiosE[num].documento}}') no-repeat center;width:100%;"> </div >
+	                <a href="{{data.estudiosE[num].documento}}" class="swipebox" title="{{data.estudiosE[num].idDoc}}">
+	                	  <div class="documentPicEst" id="doc{{num}}" style="background: url('{{data.estudiosE[num].documento}}') no-repeat center;width:100%;"> </div >
 	                </a>
                 </div>
 
                 <div id="no_Doc_{{num}}" class="small-8 columns cursor">
-                {{estudiosE[num].idDoc}}
+                {{data.estudiosE[num].idDoc}}
                 <br>
-                {{momentoFecha(estudiosE[num].fecha)}}
+                {{momentoFecha(data.estudiosE[num].fecha)}}
 
                 </div>
                 
@@ -518,6 +523,10 @@
 
                 {{/each}}
 
+                {{#if estudiosA.length==0}}
+                <div class="emptyTitle">El paciente no cuenta con estudios</div>
+                {{/if}}
+
             </div>
         </div>
     </div>
@@ -598,7 +607,7 @@
             <button on-tap="cerrarsesion" class="ui-btn" >cerrar sesión</button>
 
 
-            <div class="version">versión 1.2.1</div>
+            <div class="version">versión 1.3.0</div>
 
     </div><!-- /panel -->
 

@@ -7,11 +7,14 @@ if(window.StatusBar) {
   StatusBar.styleDefault();
 }
 
-
+function forceLower(strInput){
+  strInput.value=strInput.value.toLowerCase();
+}
 
 function handleClicks(e){
    console.log("ert")
 }
+
 
 
 // DOM Ready =============================================================

@@ -36,7 +36,11 @@ var ctrl_listNotas = {
 		$(ctrl_listNotas.pageDiv).trigger("create");
 		//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 		 myScroll = new IScroll('#wrapperList',{  
-		 	click:true,useTransition:true,scrollbars:scrolls,mouseWheel:true,interactiveScrollbars: true })
+		 	click:true,useTransition:true,scrollbars:scrolls,
+		 	disablePointer: true, 
+			disableTouch: false, 
+			disableMouse: false, 
+		 	nmouseWheel:true,interactiveScrollbars: true })
 
 		ctrl_listNotas.mainObj.on('clickSecc',function(e){
 			//mainC.clickAnim(e.node)
@@ -49,14 +53,9 @@ var ctrl_listNotas = {
 
 	},
 	getData : function(){
-		socket.on('histDataNotas', function(response){
-		if (response.length > 0 ) {
-					ctrl_listNotas.mainObj.set('data', response);
-					socket.removeListener('histDataNotas');
-				}
-			
-		});
-
-		socket.emit('getHistoriaNotas',{room:userRoom,curp:ctrl_listNotas.curp});
+		dbC.query('paciente/getHistoriaNotas','POST', {curp:ctrl_listNotas.curp}, ctrl_listNotas.dataResponse);
+	},
+	dataResponse : function(response){
+			ctrl_listNotas.mainObj.set('data', response);	
 	}
 }

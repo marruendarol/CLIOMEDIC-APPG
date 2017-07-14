@@ -8,18 +8,25 @@ var ctrl_info = {
 
 	init : function(data,template){
 		ctrl_info.data = data;
+		ctrl_info.getExp();
+	},
+	getExp : function(){
+		dbC.query('paciente/getDetalleNota','POST', {data:paramsSuc.data.expId }, ctrl_info.retExp);
+	},
+	retExp : function(response){
+		ctrl_info.expData = response[0];
 		ctrl_info.render();
 	},
 	render : function(){
 
 
-		var data  = paramsSuc.data 
+		var data  = ctrl_info.expData
 		estudiosE = data.estudiosE || [];
 		data.cargas = [{nombre:"ESTDS",desc:"Archivos EST",folder:"estudios"}];
 				
-		console.log(data)		
+		console.log(data,"FCGH")		
 
-		var mainObj = template.render('#infoT',ctrl_info.pageDiv,data)
+		var mainObj = template.render('#infoT',ctrl_info.pageDiv,{data:data})
 		$(ctrl_info.pageDiv).trigger("create");
 
 		mainObj.on('genMap',function(event){
@@ -29,12 +36,7 @@ var ctrl_info = {
 			//window.location = "#mapa"
 		})
 
-		mainObj.on('navigate',function(){
-			jqm.showLoader("Localizando...")
-			ctrl_info.locRet()
-			//navigator.geolocation.getCurrentPosition(ctrl_info.locRet,ctrl_info.onLocationError); 
-			
-		})
+	
 
 		mainObj.on('selectFileDoc',function(event){
 			console.log(event.context.nombre)
@@ -58,14 +60,16 @@ var ctrl_info = {
 				that.estudiosE.splice(num, 1);
 				var dato = {};
 				dato.estudiosE = that.estudiosE;
-				socket.emit('updateExp',{room:userRoom,data : dato,_id:paramsSuc.data });
+
+				dbC.query('paciente/updateExp','POST', {data : dato,_id:paramsSuc.data.expId }, null);
+
 				
 			}
 		});
 
         ctrl_info.uploadCallBack = function(response){
            
-           console.log(response,"response",ctrl_info.data)
+           console.log(response,"responset",ctrl_info.data)
            profilePic =  response;
 			
 			var valor = parseInt(Math.random(1000000)*100000000);
@@ -76,15 +80,22 @@ var ctrl_info = {
 			
 			var dato = {};
 			dato.estudiosE = estudiosE;
-			mainObj.set('estudiosE',estudiosE)
-			socket.emit('updateExp',{room:userRoom,data : dato,_id:paramsSuc.data.expId});
-			socket.emit('getExpediente',{room:userRoom,curp:paramsSuc.data.curp});
+			var datoW = {}
+			datoW.estudiosE = estudiosE;
+			mainObj.set('estudiosE',estudiosE);
+			dbC.query('paciente/updateExp','POST',{data : datoW,_id:paramsSuc.data.expId }, ctrl_info.updRet);
+			//dbC.query('paciente/getExpediente','POST', {curp:paramsSuc.data.curp }, ctrl_info.updRet);
+			
 			
         };
 
 
 		var  myScroll = new IScroll('#wrapperInfo',{  
-		 	click:true,scrollbars:scrolls,mouseWheel:true,interactiveScrollbars: true })
+		 	click:true,scrollbars:scrolls,mouseWheel:true,
+		 	 	disablePointer: true, // important to disable the pointer events that causes the issues
+				disableTouch: false, 
+				disableMouse: false, 
+		 		interactiveScrollbars: true })
 
 
 		
@@ -93,12 +104,19 @@ var ctrl_info = {
 
 
 		setTimeout(function(){ myScroll.refresh() }, 500);
+	},
+
+	updRet : function(){
+		console.log("pasando en regreso")
+		try { jqm.hideLoader(); } catch (e){};
 	}
 }
 
 
 
 function uploadPhoto(imageURI) {
+
+			jqm.showLoader("Subiendo imagen...")
             var options = new FileUploadOptions();
             options.chunkedMode = false;
             options.fileKey="file";

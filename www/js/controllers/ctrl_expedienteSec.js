@@ -37,7 +37,11 @@ var ctrl_expedienteSec = {
 		$(ctrl_expedienteSec.pageDiv).trigger("create");
 		//document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
 		 myScroll = new IScroll('#wrapperList',{  
-		 	click:true,useTransition:true,scrollbars:scrolls,mouseWheel:true,interactiveScrollbars: true })
+		 	click:true,useTransition:true,scrollbars:scrolls,mouseWheel:true,
+		 		disablePointer: true, // important to disable the pointer events that causes the issues
+disableTouch: false, // false if you want the slider to be usable with touch devices
+disableMouse: false, // false if you want the slider to be usable with a mouse (desktop)
+interactiveScrollbars: true })
 
 		ctrl_expedienteSec.mainObj.on('clickSecc',function(e){
 			console.log(e.context,"CONTEXTO")

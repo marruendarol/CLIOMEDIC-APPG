@@ -51,14 +51,14 @@ var mainC = {
 }
 
 function showLoading( on, text ) {  // on: true|false
-
+ try {
     setTimeout( function() {
       if ( on )
         $.mobile.loading( "show",  {
 		  text: text || "",
 		  textVisible: true,
 		  theme: "z",
-		  html: ""
+		  html: "<span class='ui-icon ui-icon-loading'></span><div class='loadTitle'>"+ text +"</div>"
 		} );
       else {
         //$.mobile.loading( "hide" );  // does not seem to work (e.g. using with GWT and jQM 1.4.3)
@@ -66,6 +66,7 @@ function showLoading( on, text ) {  // on: true|false
         $('.ui-loader').remove();  // removes the loader div from the body
       }       
     }, 1); 
+	}catch(e){}
 }
 
 
@@ -161,13 +162,24 @@ var rh = {
 		return utils.timeConverter(value);
 	},
 	correctCase : function(str){
-		return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+		if(str!=undefined){
+				return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});	
+		}else{
+			return str;
+		}
+		
 	},
 	roundDist : function(value){
-		return value.toFixed(2);
+		if(value!=undefined){
+			return value.toFixed(2);	
+		}
+		return value;
+		
 	},
 	maskTel : function(value){
+		if(value!=undefined){
 		return value.replace(/(.{2})(.{4})(.{4})/,'$1 $2 $3 ');
+		}
 	},
 	restantes : function(value){
 		var date1 = new Date(parseInt(value)*1000);
@@ -206,7 +218,10 @@ var rh = {
       return  cal;
     },
 	cCase  : function(str){
-		return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+		if(str!=undefined){
+			return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});	
+		}
+		
 	},
 }
 

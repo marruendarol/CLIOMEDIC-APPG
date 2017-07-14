@@ -43,7 +43,11 @@ var ctrl_personales = {
 		$("#table_personales tr:odd").css('background-color', 'rgb(223, 223, 223)'); 
 
 		var  myScroll = new IScroll('#wrapperInfo',{  
-		 	click:true,scrollbars:scrolls,mouseWheel:true,interactiveScrollbars: true })
+		 	click:true,scrollbars:scrolls,mouseWheel:true,
+		 		disablePointer: true, // important to disable the pointer events that causes the issues
+disableTouch: false, // false if you want the slider to be usable with touch devices
+disableMouse: false, // false if you want the slider to be usable with a mouse (desktop)
+		 	interactiveScrollbars: true })
 
 
 		setTimeout(function(){ myScroll.refresh() }, 500);

@@ -88,21 +88,6 @@ var ctrl_listDesc = {
 		 ctrl_listDesc.getBanner();
 		
 
-	},
-	getBanner : function(){
-		$.ajax({
-          type: 'POST',
-            data: {},
-            url: serverURL + '/api/getBanner',
-            crossDomain: true,
-            dataType: 'JSON'
-             }).done(function( response ) {
-             	ctrl_listDesc.mainObj.set('img',response.imagenes[0].url)
-             	ctrl_listDesc.mainObj.set('urlLink',response.imagenes[0].urlLink)
-              	
-          }).fail(function( response ) {
-              console.log("banner error ")  
-    	});   
 	}
 }
 
