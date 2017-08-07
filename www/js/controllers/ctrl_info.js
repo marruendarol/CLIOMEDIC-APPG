@@ -21,7 +21,6 @@ var ctrl_info = {
 
 
 		var data  = ctrl_info.expData
-		estudiosE = data.estudiosE || [];
 		data.cargas = [{nombre:"ESTDS",desc:"Archivos EST",folder:"estudios"}];
 				
 		console.log(data,"FCGH")		
