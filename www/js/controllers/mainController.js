@@ -9,8 +9,8 @@
 
 var userLat = 20.6596
 var userLng = -103.3496
-var serverURL = "https://cliomedic.com/";
-//var serverURL = "http://192.168.100.15:3030";
+var serverURL = "https://plus.cliomedic.com/";
+//var serverURL = "http://192.168.1.73:3030/";
 var paramsPage = {}
 var scrolls = false;
 
@@ -84,7 +84,13 @@ var jqm = {
 		
 		$('#pop_Title').html(params.title)
 		$('#pop_text').html(params.text)
-		$( "#pop1" ).popup( "open" )
+		$( "#pop1" ).popup( "open" );
+
+		$( "#pop1" ).on( "popupafterclose", function( event, ui ) {
+			params.callback()
+
+		} );
+
 	}
 }
 

@@ -20,7 +20,7 @@ var ctrl_info = {
 	render : function(){
 
 
-		var data  = ctrl_info.expData
+		data  = ctrl_info.expData
 		data.cargas = [{nombre:"ESTDS",desc:"Archivos EST",folder:"estudios"}];
 				
 		console.log(data,"FCGH")		
@@ -74,14 +74,14 @@ var ctrl_info = {
 			var valor = parseInt(Math.random(1000000)*100000000);
 			
 		
-			estudiosE.push({idDoc: 'CDOC-'+valor, documento: profilePic.response, fecha: new Date()});
+			data.estudiosE.push({idDoc: 'CDOC-'+valor, documento: profilePic.response, fecha: new Date()});
 
 			
 			var dato = {};
-			dato.estudiosE = estudiosE;
+			//dato.estudiosE = estudiosE;
 			var datoW = {}
-			datoW.estudiosE = estudiosE;
-			mainObj.set('estudiosE',estudiosE);
+			datoW.estudiosE = data.estudiosE;
+			mainObj.set('estudiosE',data.estudiosE);
 			dbC.query('paciente/updateExp','POST',{data : datoW,_id:paramsSuc.data.expId }, ctrl_info.updRet);
 			//dbC.query('paciente/getExpediente','POST', {curp:paramsSuc.data.curp }, ctrl_info.updRet);
 			
@@ -138,7 +138,8 @@ function uploadPhoto(imageURI) {
 
             var ft = new FileTransfer();
             var params = "folder=" + 'estudios' + "&fileName=" +  options.fileName + "&fileExtension=." + options.fileExtension ;
-            ft.upload(imageURI, 'https://104.131.162.87:3000' + "/user/uploadRackspaceMobile?" + params, 
+            ft.upload(imageURI, 'https://plus.cliomedic.com:3030' + "/user/uploadRackspaceMobile?" + params, 
             	function(response){ctrl_info.uploadCallBack(response)}, 
             	function(response){console.log("fail",response)}, options,true);
         }
+

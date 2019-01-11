@@ -1,0 +1,30 @@
+{
+  "name": "com.nucleo.cliomedic",
+  "version": "1.3.2",
+  "displayName": "Cliomedic",
+  "cordova": {
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-device": {},
+      "cordova-plugin-network-information": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-geolocation": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-camera": {},
+      "cordova-plugin-file-transfer": {},
+      "cordova-plugin-media-capture": {
+        "CAMERA_USAGE_DESCRIPTION": "Subir Expediente",
+        "MICROPHONE_USAGE_DESCRIPTION": "Subir Expediente",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": "Subir Expediente"
+      }
+    }
+  },
+  "dependencies": {
+    "cordova-ios": "~4.0.0",
+    "cordova-android": "~6.0.0",
+    "cordova-plugin-media-capture": "*"
+  }
+}
