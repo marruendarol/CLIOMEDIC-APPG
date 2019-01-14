@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="302" id="com.nucleo.cliomedic" version="1.3.5" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget android-versionCode="302" id="com.nucleo.cliomedic" version="1.3.6" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Cliomedic</name>
     <description>
        Cliomedic
@@ -27,6 +27,12 @@
     <preference name="BackgroundColor" value="0x0000" />
     <preference name="stay-in-webview" value="false" />
     <preference name="ios-statusbarstyle" value="black-opaque" />
+
+    <edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="overwrite">
+    <string>Para que el usuario pueda anexar evidencia al expediente clínico</string>
+</edit-config>
+
+
     <feature name="Geolocation">
         <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
     </feature>
@@ -89,6 +95,7 @@
        
         <icon src="www/res/ios/ItunesArtwork@2x.png" width="1024" height="1024" />
         
+        <icon src="www/res/ios/icon.png" width="1024" height="1024" />
 
         <splash height="480" platform="ios" src="www/res/ios/Default.png" width="320" />
         <splash height="960" platform="ios" src="www/res/ios/Default@2x.png" width="640" />
